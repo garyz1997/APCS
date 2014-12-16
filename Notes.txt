@@ -1,0 +1,238 @@
+Array
+	the simplest java data structure
+	A contiguous block of memory used to store multiple values of the same type
+	Arrays have a fixed size
+	       An array can be re-initialized to a new size, but that will erase all the data stored in it.
+
+	Each element in an array will contain the default value for the array's data type until modified.
+
+	Array syntax basics:
+	      int[] ray; //Array declaration
+	         ^-denote that ray is an array of ints
+	ray = new int[10]; //Array initialization
+	      	      ^-- sets te size of the array
+ray.length; //Returns size of array
+
+[]s are used to access values in an array
+ray[0] = 75;
+ray[i] works, but 0 <=i< ray.length
+
+Initializer lists
+Used to create an array with present values
+char[] cray = { 'a','b','c' };
+This will create a 3 character array with the values 'a','b', and 'c'
+
+Aim:How can we work with Arrays?
+
+Aim: How can we make arrays better?
+DN: write down some limitations of arrays
+
+1 type pony
+fixed size
+cannot display all elements in 1 command
+no negative indicies
+cant slice
+
+SuperArray
+
+Instance Vars:
+
+Object[] data
+int size
+
+Methods:
+size() //returns size
+contains(element) //does it contain this element
+find(element) //finds first occurrence of the element
+add(element) //adds the element to the end
+remove(position) //removes the element at this position
+remove(element) //removes the first occurrence of this element
+remove(positionrange) //removes the elements in this range
+subArray(positionrange) //makes another array from the index range
+toString() //returns all of the elements in the array
+
+add(Object o): adds o to the next available space
+replace(Object o, int i):put o in position i
+resize(): create a new array and copy values over
+toString()
+default constructor
+remove(int i): remove the element at i
+add(Object o, int i): insert o at position i without losing any data
+get(int i): returns the element at position i
+
+Aim: How does type casting work?
+
+Type Casting
+	Using a value as a type other than its declared type
+	All primitives(except booleans) can be type cast to one of the other primitive types
+	Type casting cannot change a variable
+
+syntax:
+	(<NEW TYPE>)<VALUE/VARIABLE>
+	(double)4
+	(int)13.8
+	(short)x
+An object variable can be typecast to its object type or any type above it in a class hierarchy
+
+Arraylist methods:
+int size()
+
+	boolean add(Object o )
+	Adds o to the end of the ArrayList
+	Returns true
+
+	void add(int i, Object o)
+	Adds o to position i in ArrayList
+	All elements at position i or later are shifted to the right
+	0<=i<=size()
+
+	Object get(int i)
+	Returns the element at position i
+	0<=i<size()
+
+	Object set(int i, Object o)
+	Replaces the element at position i with o
+	Returns the element that was at position i
+	0<=i<size()
+
+	Object remove(int i)
+	"Removes" the position at position i
+	All elements after position i are shifted to the left
+	Returns the element that was removed
+	0<=i<size()
+
+Generics: Provides specific type for a generic Object
+
+ArrayList<String> a = new ArrayList<String>();
+-All you want inside this is Strings
+
+<E> -> arraylist of only 1 type
+<E,F> 2 types
+
+private E[] data;
+
+data = (E[])new Object[0]'
+
+public void add( E o){
+
+}
+
+
+public E get(int i){
+
+}
+
+public void add(E o, int i){}
+
+public E set(E o, int i){}
+
+
+An array can contain any type, including otehr arrays
+an array of arrays is a 2-D array
+syntax:
+	int[][] a2d = new int[4][5];
+//first # is the amount of arrays
+//second # is the size of each array
+
+Aim: How can we keep ArrayLists in order?
+DN: Consider a data structure that works like an ArrayList but is always in sorted order. Assume this class has a single instance variable, an ArrayList. What must be different between this data structure and a regular ArrayList?
+
+add(value) would have to maintain order
+add(index,value) does not fit description of the DS
+establish a standard for "order"
+need to be able to compare the data
+set(index,value) does not fit the DS
+
+
+for i in {0..10000}; do echo $i | ./guess ;done
+
+Aim: what are interfaces?
+
+A java interface allows multiple classes to share the same method behavior
+Interfaces can only contain abstract mthods, and constants
+Interfaces can be variable types but cannot be object types
+
+Comparable
+java interface that contains a single method
+
+public int compareTo( Object o);
+a.compareTo(b) returns:
+	0 if a == b
+	some negative number if a < b
+	some positive number is a > b
+
+12/9/14: How does binary search work?
+DN: Write a new version of the search function, but this time, use the binary search algorithm.
+
+Aim: How can we analyze algorithm efficiency?
+DN: What are some ways you could measure how efficient an algorithm is? Are there any possible issues with these measures?
+Measure how the time it takes for a program to run changes as the data increases
+space efficiency
+
+Algorithm efficiency can refer to space efficiency or time efficiency. Often the two are inversely related (but not always).
+While discussing efficiency, it's important to be aware of the difference between the efficiency of an algorithm vs the power of the computer on which it is being run
+
+Big-O Notation
+	Used to formalize the analysis of algorithms
+	Provides an estimated upper bound for the amount of work done. It is not an exact measure.
+
+	Refers to the efficiency of an algorithm as the amount of data (n) increases.
+
+
+Ex: for (int i = 0; i < a.length; i++){
+	a[i] = a[i] * 10;
+	}
+
+Big O value: The loop increases at the same rate as n: O(n)
+
+Nested for loops: O(n*n) = O(n^2)
+
+
+How can we find Big-O values?
+
+1)      for loop(len);
+	for loop(len);
+O(n+n) = O(2n) = O(n)
+2)      for loop(10);//constant time operation O(1)
+	for loop(len);
+O(n+1) = O(n)
+3)      for loop(len/2);
+
+
+Tips for evaluating Big-O
+Ignore any step that is independant of the size of the data
+	These are called constant time operations
+
+When evaluating nested statements, find the Big-O value of each individual statement and them multiply them
+When evaluating consecutive (non-nested) statements, find the Big-O value of each, then select the Big-O value that is the largest
+
+1) 
+for loop; O(n)
+for loop(index*2);O(log n)
+
+O(n)
+
+2)
+public int foo(int k) {
+if (k <= 1) return 1;
+return foo(k-1) + foo(k-2); }
+O(2^n)
+
+3)
+ArrayList goo;
+for (int i = 0;i<50;i++)
+goo.add(0,Math.random());
+O(1);
+
+Table of common Big-O values (also known as orders)
+
+Order		name		n=10		n=100		n=1000
+O(1)		constant	1		1		1
+O(logn)		logarithmic	3.3		6.6		9.9
+O(n)		linear		10		100		1000
+O(nlogn)	loglinear	33		664		9970
+O(n^2)		quadratic	100		10,000		1,000,000
+O(2^n)		exponential	1024		1.27*10^30 	1.07*10^301
+
+
+TEST: Big-O, 2D Arrays, Comparable
