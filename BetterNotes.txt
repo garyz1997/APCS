@@ -1003,4 +1003,198 @@ Actually, no. For Control-Flow Statements (Conditional, Loops, etc.), no bracket
 This is due to the ability to nest the control-flow statements where the resulting code-block of a nested control-flow statement will not be considered part of the original control-flow statement by Java.
 This should not, however, make you get used to not using brackets. This may eventually become detrimental if you need to add more code to your code-block, such in adding print-statements in order to bug-fix. Use of this short-cut/brackets is under your discretion, as long as it does not interfere with the effectiveness of your code.
 
+11/03/14
+Aim: How can we make arrays better?
+Some limitations of arrays:
+    Arrays are of a fixed size. 
+    Arrays can only hold one type of data.
+    Arrays cannot have negative indices.
+    Values in arrays cannot be appended. 
+    Arrays cannot give the index of a given value. 
+How might we go about fixing these problems?
+SuperArray 
+    Create an instance variable that is an array of Objects : 
+        Object[ ] data
+            This already takes care of the problem in which an array can only hold one type of data.
+            How do we append a value? Create a new array.
+            The new array would consist of the “used” and the “unused” space.
+            The size would refer to the space where the “used” space ends.
+                For this, create a variable int size.
+    Conclusion
+        Instance Variables :
+            Object[ ] data
+            int size                                                                                                                                              
+        Methods :
+            default constructor
+            size based constructor
+            copy
+            insert (add anywhere)
+            append (add at the end)
+            concatenate
+            resize
+11/4/14
+Aim: How can we write our improved array class?
+Instance Variables:
+    Object[] Data;
+    int size;
+Methods:
+    resize: make a new array and copy old values over
+    add: append an element to the end of the end of the used space
+    remove:
+    add(int i): add to position i
+    slice(int s, int e): returns the portion of the array from s to e
+    toString
+    size(): return the number of used positions
+    get(int i): return the element at position i
+    replace(int i ,Object o): put o at position i
+    find(Object o): find object o in the array
+
+11/6/14 superArray Review (period 10)
+
+11/6/14 
+Aim: superArray Review
+// Constructors
+public SuperArray() {
+	data = new Object[10];
+	size = 0;
+}
+public SuperArray(int s) {
+	data = new Object[s];
+	size = 0;
+}
+
+public String toString() {
+	String s = "";
+	for (int i = 0; i < size; i++) 	// Use size as the compared value instead of the length of the array!
+		s += data[i] + " ";
+	return s;
+}
+
+private void resize { 	// PRIVATE because other don't need resize as long as you apply it correctly!
+	Object[] newData = new Object[s];
+	for (int i = 0; i < data.length; i++) 
+		newData[i] = data[i];
+	data = newData;		// ***
+}
+
+public void add(Object o) {
+	data[size] = 0;
+	size++;
+	if (size == data.length)
+		resize(data.length + 10);
+}
+
+public static void main(String[] args) {
+	SuperArray sa = new SuperArray();
+	for (int i = o; i < 15; i++) 
+		sa.add(i);
+	System.out.println(sa);
+}
+
+
+11/7/14
+Aim: How does type casting work?
+Integers can become a double without a problem.
+Rule of thumb:
+You can go from something that is less precise to something that is more precise (for primitives). Java will allow you to do this automatically.
+You CANNOT do this backwards. A double cannot be forced into an integer normally. In fact, Java will not even allow you to compile if it believes you are losing precision.
+Type Casting
+       Using a value as a type other than its declared type.
+
+byte b = 65;
+(double) b
+//Returns 65.0
+
+double d = 1947.24
+(int) d 
+//Returns 1947
+
+All primitives (except for booleans) can be type cast to one of the other primitive types. This will ignore problems about precision.
+Type casting does NOT change a variable. Type cast can change the type it is, but it cannot modify a variable.
+syntax:
+    (<NEW TYPE>) <VALUE/VARIABLE>
+    (double)4
+    (int) 13.8
+    (short)x
+
+char c = '%';
+byte b = 65;
+
+System.out.println( (int) c);
+//Will yield 37
+
+System.out.println( (char) b);
+//Will yield 'A'
+
+Type casting has precedence over all the arithmetic operations, but NOT over dot.
+
+An object variable can be typecast to its object type or any type above it in a class hierarchy.
+
+Object o = new String("String");
+String t = o;
+//Returns an error: incompatible types. o is an object, but String t requires a String.
+
+Object o = new String("String");
+String t = (String)o;
+//Works fine.
+
+int i = (int)o;
+//Compiles fine, but runtime error: ClassCastException, incorrect type casting.
+
+System.out.println(t.toUpperCase());
+//Makes all the letters UPPERCASE. Returns "STRING".
+
+System.out.println( (String) o.toUpperCase() );
+//Returns an error, because the type casting works only after the method is called.
+
+11/13/14
+Aim: ArrayList Methods
+There are six methods in ArrayList that are on the AP exam.  You can use other methods on the exam as long as they don't solve the problem for you.
+int size()
+	Returns the amount of elements in the array.
+
+boolean add (Object o)
+	Adds o to the ends of the ArrayList
+	Returns true (never returns false because ass is always successful)
+
+void add (int i, Object o)
+	Adds o to position i in the ArrayList
+	All elements at position i or later are shifted to the right
+	0<= i <= size() (remember: Java doesn't allow negative indices)
+
+Object get (int i)
+	Returns the element at position i
+	0<= i < size()
+
+Object set (int i, Object o)
+	Replaces the element that was at posiition i with o
+	0<= i < size()
+
+Object remove (int i)
+	"Removes" the element at position i
+	All elements after position i are shifted to the left
+	Returns the element that was removed
+	0<= i < size()
+	
+11/19/14
+Aim: XLint
+For example, you'd need to use typecasting to get ((numberTile) board.get(i)).getRight();
+because an object doesn't have getRight(). We looked at examples of this and talked about the "cannot find symbol" error and why it comes up after compiling rather than before.
+Typecasting goes against Java's approach to typing. In other words, it says "this object is actually a string" and forces Java to treat it as such.
+
  
+
+We also talked about the "warnings" that ArrayList gives us rather than errors. 
+
+Saying "javac foo.java -Xlint" gives more details on the type-based warnings.
+
+
+Lastly, we learned how to specify if a list is comprised entirely of one type of thing. When you initialize and substantiate an ArrayList, you can write the 'type' in angle brackets (ie gang signs).
+
+For example, you can say "ArrayList<int>" to specify an ArrayList of integers. Firstly, this returns actual errors rather of warnings. Secondly, there's no need for typecasting. This function, for example, would return all ints when .get is used.
+
+ 
+
+We can do this because of generics. Generics are almost like arguments, except that you specify a type, which the method or class can then use.  For example, take "SuperArray<E>". E will be later replaced by a type like "int" when you call the class and insert a type into the brackets. 
+
+You can then write lines like "private E[] data..."  or "data = (E[])new Object[10];", and E will be replaced by that type.
