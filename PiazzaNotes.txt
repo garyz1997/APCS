@@ -1,0 +1,248 @@
+9/8
+Aim: What is Java? What should be in our Java toolbox?
+Language Types: 
+
+Interpreted vs Compiled
+
+Interpreted language code is turned directly into machine instructions via another program
+(the interpreter must be used every time)
+Examples: Racket, netLogo, Python
+
+Compiled code must be translated into machine (binary) code via another program (the compiler).
+The machine code can then be run by a computer. The compiler only needs to be run once.
+Examples: Java, C, Pascal, C#, Objective-C, C++
+foo.java -----> foo.class
+compiled
+
+Functional vs Object Oriented
+
+In a functional language, your main programming task is to write functions which are then executed in order.
+Examples: Racket, NetLogo, Python, C
+
+In Object Oriented Programming (OOP), your main programming task is to create classes of objects and have objects interact with each other.
+Examples: Java, C++, Objective-C
+
+
+9/10/14
+Aim: What should be in our Java toolbox?
+Programming Tools
+
+    Text Editor
+        Basic tool for writing code. Programming text editors will have many useful programming features like highlighting, automatic tabbing, auto-completion, etc.
+    Compiler
+    Interpreter
+    IDE (Integrated Development Environment)
+        Designed to handle all your programming needs. IDEs will contain a text editor as well as an interpreter/compiler for the language
+        Language specific
+
+Java Tools
+
+    javac
+        The java compiler
+
+        Basic operations:
+
+        $ javac <source>
+        $ javac foo.java
+        Will compile/create foo class
+
+    java
+        The Java virtual machine (The JVM)
+        The JVM allows your compiled Java code to run on any computer that has Java. This is called cross platform. Each platform (computer hardware + OS) has a 		specific JVM.
+        The JVM sits between your compiled java files and your computer. It allows any java code binary file to run on the computer.
+        Basic operations:
+
+        $ java <java binary source>
+        $ java foo.class
+        Will run code
+
+9/11/14
+Aim: What does a java program look like?
+
+Emacs is designed so that you never have to use the mouse.
+When you open Emacs in the terminal, it takes over the terminal. To open it, type:
+
+emacs -nw
+
+If you want to open a specific file, type
+
+emacs <name of file> -nw
+
+In Emacs, there are no scroll bars, and asterisks means that there are unsaved changes.
+
+Some useful shortcuts in Emacs are:
+Ctrl-x-c	exit
+Ctrl-x-s	save
+Ctrl-x-w	save as
+Ctrl-x-f	open (find)
+Ctrl-g		stop an Emacs action
+Ctrl-e		goes to the end of a line
+Ctrl-a		goes to the start of a line
+Ctrl-s		search
+Ctrl-k		cut a line (kill)
+Ctrl-y		paste (yank)
+Ctrl-z		puts Emacs in the background(does not quit Emacs)
+$fg	moves background to foreground
+
+How to print "Good News Everyone!" in java:
+
+public class Hello {
+	public static void main(String[] args) {
+		System.out.println("Good News Everyone!");
+	}
+}
+
+Rules of Java Syntax:
+    Java is case sensitive
+    Class name must match file name, e.g. Hello.java must define a class called Hello
+    Regular statements must end in a ;
+    Code blocks are contained inside curly brackets {}
+    { replaces ; at the end of a line that starts a code block
+    } sets the end of a code block
+Code Blocks:
+    method bodies
+    class bodies
+    conditional (if, else...) statements
+    looping processes
+Comments:
+// can be used to comment out a single line of code
+
+      e.g. // This will print to the command line
+
+              system.out.println ("boo"); //scary
+
+/*...*/ can be used to comment out multiple lines (block comment)
+
+      e.g. /* This
+              Is
+              Java */
+
+public class Hello {
+	public static void main (String[] args) {
+		System.out.println("Hello");
+	}
+}
+
+Everything within the first set of curly braces is called the method.
+"main" : name of the method
+"(String[ ] args)" : parameter list
+"public static void main (String [ ] args)" : the header
+"system...("Hello");" : the body (within the curly braces)
+
+9/16/14
+Aim: What’s all this about objects now?
+
+Object Oriented Programming (OOP)	
+
+	An OOP program is a collection of objects
+	The properties of an object are defined in a class
+		A Class is a blueprint for all objects of the same type
+		An object is a specific instance of a class
+		An object has 2 parts
+			1) Instance Variables : Things the object "knows"
+			2) Methods: Things the object "does" [note: this is like a function]
+		Instance Variables are declared at the top of a class, before any methods
+			You must declare any variables before you use it.
+			Variable delcaration includes a name and type.
+9/17/14
+Aim: What are the parts of a java class? 
+
+public class Greeter {
+	//Instance Variable
+	private String message;
+
+	//Methods
+	public void setMessage( string m ) {
+		message = m;
+	}
+	public void greet() {
+		System.out.println(message);
+		}
+}
+
+While we could compile this file, running it gave an error about a missing method, "main", bringing up runtime vs compiler errors. The compiler can pick up some errors, mainly involving syntax while compiling. However, it is possible for a program to be compilable but still give an error when run.
+Also another note, unlike python, java has no required formatting. You can write programs on a single line. Don't do it. Write readable and maintainable code.
+
+Java Class Anatomy:
+    Protection/Access restriction: determines access to classes, variables, and  methods
+        Public- can be used by any java class
+        Private- can only be used by the class itself
+        protected- can be used by classes itself and all its subclasses (classes that have the properties of the main class and then more)
+    Identifiers: names of variables, classes, and methods
+        Can only consist of upper and lower case letters, _ and $
+        Can't start with number
+Java class template:
+
+<class header> {
+	<instance variables>
+	<methods>
+	}
+
+Class Header:
+
+<protection> class <identifier (class name)>
+
+//By convention class names start with a capital letter and use camel case 
+//e.g. public class Example, public class CamelCaseIsLikeThis
+
+
+It is common practice to make the instance variables private but methods public so that any class can change the instance variable as long as it follows the rules set by the class.
+
+Instance Variables:
+     <protection> <type> <name>
+     name
+          By convention, variable names start with a lower case letter and use camel case
+     type
+          All variables must have an associated type. 
+          The type can either be a primitive datatype or an java class.
+          Assigning a variable a type tells the compiler to map the variable to a certain chunk of memory. 
+method header
+     <protection> <return type> <name>(<parameters>)
+     name
+          Like variable names, method names usually start with a lower case letter and use camel case. 
+     parameters
+          Parameters must be given a type and a name like any other variable.
+          Multiple parameters are separated by commas. 
+          Even if the method in question does not have parameters, you still need the parentheses. 
+     return types
+          If a method returns a value, you must declare what kind of value is returned.
+          If a method does not return a value, then the return type should be void. 
+     Two or more methods in the same class can have the same name so long as they have different parameters. This is known as overloading. 
+     The parameters must be changed to overload the method. Only changing the return type or the protection will not work. 
+main method
+     Each class can (but doesn’t have to) contain a method called main.    
+     Main is special, it is the only method that is run automatically.
+          $ java Hello
+          will run the main method inside the class Hello. 
+     The main method must have the following header:
+          public static void main(String[] args)
+          For the time being, ignore the word static. 
+          “static” is a modifier.  
+
+9/19/14
+Aim: How do we get an object?
+
+public static void main(String [] args){
+	int x;
+	x = 4;
+	System.out.println(x+17)
+}
+
+This returns 21
+
+ 
+
+Creating Objects
+
+    In order to create an object(an instance of a class), you must call a special method known as a constructor
+    By default, all java classes have at least 1 constructor
+    the name of a constructor is always the name of the class itself
+    in order to use a constructor you use the Keyword: new
+
+Greeter g;
+g = new Greeter();
+g.setMessage("Good news everyone");
+g.greet()
+
+This will return the message "Good news everyone" when Greeter is run. 
+
