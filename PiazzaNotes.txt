@@ -246,3 +246,761 @@ g.greet()
 
 This will return the message "Good news everyone" when Greeter is run. 
 
+9/22/14
+Aim: What are the Java Primitive Data Types?
+    double, float - 1.01 (Not to be confused with Decimals)
+    boolean - True/False
+    int - 21, -18
+    String - "abc"
+    char - 'a'
+
+Using Variables
+Creating and using a variable takes two steps, declaration and initialization.
+Declaring a variable states what kind of type it is.
+
+ex. int x;
+     String s;
+     Greeter g;
+
+Initialization gives a variable an initial value.
+
+ex. x = -24;
+     s = "Hello";
+     g = new Greeter();
+
+Declaration and Initialization can be done on a single line
+
+ex. int x = -24
+     String s = "Hello";
+     Greeter g = new Greeter();
+
+Primitive data types: The only data types that are not classes
+Six different data types for numbers exist in Java
+
+Data type table
+Type			Name		Data size (bits)	Range
+
+Integers		byte		8	  		[-128, 127]
+			short		16		        [-215, 215 - 1]
+			int		32			[-231, 231 - 1]
+			long		64			[-263, 263 - 1]
+Floating pts		float		32			seven digits of precision
+	 		double		64	      	     	fourteen digits of precision
+Characters		char		16		 	one character
+Boolean values		boolean		?			true or false
+
+9/23/14
+Aim: How do we write our own constructors?
+//Default Values
+    If a variable is not initialized it is given a default value.
+   -All numeric primitives are set to 0.
+   -boolean primitives are set to false
+   -Characters are set to '' (empty/null character)
+   -Strings are set to "" (empty/null string)
+   -All object variables are set to null (nothing)
+//Constructor
+   Java creates a default constructor for every class.
+        The default constructor takes no parameters and will set all instance variables to their default values.
+   You can write your own constructors using this header.
+
+<protection> <class name> (<parameters>)
+
+***Note that the name of the method is the name of the class. Also, there is no return type as it will be the same as whatever you're constructing.
+Constructors can be private or protected, but are most often public.
+Example of constructors:
+Default constructor:
+
+public Greeter() {
+	message = "Hello";
+}
+
+Constructor with parameter:
+
+public Greeter( String m ) {
+	message = m;
+}
+
+
+9/24/14 Making Our Own Code
+
+We were given the instruction to go to the class website and look at the work for today. These were the instructions to be followed in class:
+We will begin by creating a java class to represent a simple bank account with the following features: 
+    Instance Variables
+        Account holder's full name
+        Account password
+        ATM pin number (some 4 digit number)
+        Account number (some 9 digit number)
+        Account balance (money in the account)
+    Methods
+        A constructor that takes parameters for each instance variable and sets them accordingly
+        Methods to set each of the 5 instance variables individually
+        A method to print out all of the account information at once
+        A deposit method that will take an amount of money as a parameter and add it to the account balance
+        A withdraw method that will take an amount of money as a parameter and remove it from the balance
+        A main method that tests your code
+A few pointers:
+    Select the appropriate data type for each of the instance variables. (If a floating point is not needed, use an integer type.)
+    TEST YOUR WORK. Write a single method at a time and then test it.
+Submit this as bankaccount(included in this repo!)
+
+
+9/29/14
+Aim: How do conditional statements work in Java?
+
+Arithmetic Operators
+
++, -, *, /, % 
+
+% ==> Modulus operator, takes the remainder of a division problem for positive numbers
+Division is dependent on the type used
+integers / integers = integers
+      - Ex. short / int = integers
+Integer division will truncate, meaning it will cut off the result at the floating point.
+All other combinations of number divisions (floats, doubles, etc.) ==> float
+It will always go for a more precise value when dividing, so int => float, not float => int.
+Ex. Literal number assumed as int => 2
+      Literal number assumed as double => 2.0
+
+Shorthand Operators
+
++=, -=, *=, /=, %=
+
+Java will do the operation indicated, and bind the new value to the variable.
+Ex. x += 1; //Adds one to the current value of x and binds it to x
+    x -= 10; //Subtracts ten from the current value of x and binds it to x
+
+Increment Operators
+
+++, --
+
+Will increment by 1.
+Ex. x++; <==> x += 1;
+    x--; <==> x -= 1;
+x++ ==> returns x then adds one to it
+++x ==> adds 1 to x then returns x
+This difference is prominent when trying to be clever when printing numbers.
+
+Comparison Operators
+
+>, <, >=, <=, ==, !=
+
+Returns a boolean
+== is the sign meaning "equal", as = is the sign meaning binding
+Ex. x = 5;   //Binding the value 5 to the variable x (Assuming it is declared already!)
+    (x == 5); //Checks to see if the value bound to x is equal to the value 5 and returns true or false
+
+Boolean Operators
+
+&& ==> and
+|| ==> or
+! => not
+
+| is not an "i', but is the key obtained when pressing SHIFT with the backslash key (above enter)
+
+Conditional Statements
+	    if (<BOOLEAN>) {
+      	       <RESULT> 
+	    } 
+ 	    else if (<BOOLEAN>) {
+	       <RESULT>
+	    }
+	    ... // (However many repeats you want, could be zero!)
+	    else {
+     	       <FINAL RESULT>
+	    }
+// else is, of course, optional! 
+
+9/30/14
+Aim: How do conditional statements work in java?
+
+	String a = new String("hello");
+	String b = new String("hello");
+	System.out.println( a == b );
+//This prints false
+
+Object Comparison
+    You cannot use >, <, >=, <= on object variables
+    == and != will check to see if two object variables refer to the same piece of memory, not if they have the same "value"
+Many classes (including string), have an equals method that can check for value equality
+
+Ex.	String s = new String("hello");
+	s.equals("hello");
+//This returns true
+
+10/3/14
+Aim: How do the basic Java loops work?
+Loops in Java
+while loop
+
+    Will run as long as a condition is true
+
+Syntax:
+	while(<BOOLEAN>){
+		<CODE>
+		}
+Example:
+	int fact = 1;
+	int n = 1;
+	while (n <= 5){
+	      fact = fact * n;
+	      n++;
+	      }
+for loop
+    "Counting loop". Will run as long as a condition is true
+    Has built in initialization and update code for a counter
+Syntax:
+	for(<INIT>; <BOOLEAN>; <UPDATE>){
+		    <CODE>
+		    }
+Example:
+	int fact = 1;
+	for (int i =1; i <=5; i++){ //Initialization only happens once
+	    fact *= i;
+	    }
+10/7/14
+Aim:  Refining our classes
+When it comes to making testing methods in the main methods, there are ways to do this that make the tests more informative.
+    Use print statements to explain what is being displayed
+    Place comments in code to explain what each part of the code is doing or should return
+Testing display():
+22 / 34
+0 / 1
+
+Testing add():
+1 / 2
+plus
+3 / 4
+equals
+10 / 8
+
+Testing reduce():
+10 / 8
+equals
+5 / 4
+Some pointers for the RationalNumber class:
+    Remember that a class is a blueprint for an object and not specific.
+Notes about RationalNumber class:
+    Passing an object of the same type as a parameter will allow you to access the instance variables and methods of the parameter directly:
+
+        public void multiply (RationalNumber other) {
+        	numerator = numerator * other.numerator;
+        	denominator = denominator * other.denominator;
+        }
+
+    The keyword this can be used to represent the object calling the function:
+
+        public void multiply (RationalNumber other) {
+        	this.numerator = this.numerator * other.numerator;
+        	this.denominator = this.denominator * other.denominator;
+        }
+
+    When testing add...
+
+        System.out.println(r + " + " + s);
+        //r and s are RationalNumber objects
+
+        Note that this probably will not give you what you were expecting/wanted
+
+        RationalNumber@6bf88953 + RationalNumber@9ffdf86
+        //Prints out the memory addresses in hexadecimal
+
+        To fix this, the toString() function must be modified.  See 10/8/14 minutia
+
+10/08/14
+Aim: What's up with that static thing anyway?
+
+toString
+    Returns a String representation of an object. Java will automatically call toString whenever you use an object variable in a String context.
+    Every object has a toString method (just like a default constructor and equals). The default toString method will return the class name and the memory location of the object.
+    Different pieces of memory are used almost every time program is run (not when run at small time intervals)
+    Example:
+
+    RationalNumber r = new RationalNumber();
+    System.out.println(r);
+    System.out.println(r.toString());
+
+        If toString is default, both print out the same value - RationalNumber@<memory location in hexadecimal>
+        If toString is not default, both print out the same value (whatever is defined in the method)
+    Header: public String toString()
+        Could be used as a display function, where you define what it should print
+    Is class-specific
+        If bankAccount is printed from RationalNumber, and toString is default in bankAccount, it will print default toString value for bankAccount
+Calling classes from other classes
+    If two classes are in the same folder, one can be called from the other by writing <CLASS> <VARIABLE> = new <CLASS>;
+    Example (from RationalNumber):
+
+    bankAccount b = new bankAccount(...);
+
+static methods
+    A static method is a class method not attached to any particular object
+        Main class
+        Math class
+    Cannot access instance variables
+    Are run by a class and not by an object
+    To call a static method, use <CLASS>.<METHOD>(...);
+        Generally safer than just <METHOD>(...);
+10/9/14
+Aim: Fire Drill and GCD
+In our RationalNumber2 homework assignment, we were given the following link to assist in creating a GCD method:
+http://www.cut-the-knot.org/blue/Euclid.shtml
+Though the method seems recursive, the purpose of doing this method for HW was to use a loop, like we learned in class on 10/3. 
+The GCD While Loop:
+The Header/Condition:
+The following condition tells Java to keep performing the code in the curly braces so long as the remainder of (a / b), "a divided by b", is not equal to 0, or so long as the condition is true.
+
+while ( (a % b) != 0 ) {...}
+
+ERROR: Why won't this work?
+Assuming a > b:
+
+while ( (a % b) != 0 ) {
+	a = b;
+	b = ( b % a );
+}
+//This will not work because of the ordering of the lines matter.
+
+This code first sets the value of a to the value of b, then sets b to the remainder of (b / a). But a was first modified to become the value of b, so since (a = b), the line (b = b % a) is actually like saying (b = b % b). Here's an example of what this code would produce:
+---Before run code---
+
+a = 2322
+
+b = 654
+
+---After run code---
+
+a = 654
+
+b = 654 % 654  //so b now equals 0, making the while loop condition false and thus, stopping the while loop
+
+Working GCD method
+The error discussed in the previous section can be fixed by declaring a new variable holding the value of a. 
+After a becomes the value of b, in the next line, we can use tmp, which holds the original value a, to divide (b % tmp).
+
+while ( ( a % b ) != 0) {
+	int tmp = a;
+	a = b;
+	b = (b % tmp);
+}
+
+10/10/14 
+Aim: How to write a Role-Playing Game (RPG)
+We are creating a text-based RPG. One famous example of such a game is Zork.
+Let's try creating our classes of objects:
+First a warrior class:
+
+public class Warrior {
+	int health;
+	int damage;
+	String name;
+	int xp;
+
+	public Warrior(){
+		health =20;
+		damage=8;
+		name = "Bob";
+		xp=0;
+	}
+
+	public void attack(){
+		System.out.println("AGHHHHHHH")
+	}
+}
+
+Now lets create a mage
+
+public class Mage {
+	int health;
+	int damage;
+	int name;
+	int xp;	
+}
+
+....and 1000 more types of things...
+
+That is too tedious!
+What do the characters have in common?
+Health, damage, etc.
+
+Let's try to create a superclass called character.
+
+public class Character {
+
+	// Instance Variables
+	int health;
+	int xp;
+	String name;
+	int damage;
+
+	// Methods
+	public Character() {
+		xp = 0;
+		name = "Bob";
+	}
+
+	public void attack() {
+		System.out.println("I'm attacking");
+	}
+}
+
+ We can do this because Java is polymorphic
+Polymorphism
+    Allows multiple classes to share instance variables and methods
+    Java can have superclasses and subclasses; subclasses can inherit instance variables and methods from superclasses
+    Some characters have common attributes so a superclass can be created so that subclasses can inherit instance variables and methods
+        example of a superclass and subclass hierarchy:
+
+                                                     Character
+                                           ______________|______________
+                                          |              |              |
+                                       Warrior          Mage           Tank
+                                                         |
+                                                       Healer
+
+We can create a subclass of our new character class by using 'extends':
+Example:
+
+public class Mage extends Character {
+	public Mage() {
+		health = 10;
+		damage = 1000;  // Because Mage's are overpowered
+	}
+
+	public void attack() {
+		System.out.println("pew pew");
+	}
+}
+
+Because we are referencing 'character' in our new mage class, we want to make sure the two class files are in the same folder (for convenience).
+In addition, we would want a separate game driver class. Here's how it would look if we have a Character class along with a Warrior class that extends it:
+
+public class Game {
+	public static void main(String[] args){
+		Character c = new Character;
+		Warrior w = new Warrior();
+		w.attack();
+	}
+}
+
+10/14/14
+Aim: How do we extend classes?
+Do Now: Create a Character class with the following:
+Instance Variables:
+    name
+    health
+    damage
+    experience
+Methods:
+    Default Constructor
+    Constructor that takes name as a parameter
+    Attack (right now just print something)
+
+public class Character {
+	// Instance Variables
+	int health;
+	int xp;
+	String name;
+	int damage;
+
+	// Methods
+	public Character() {
+		xp = 0;
+		name = "Bob";
+	}
+	public Character(String n) {
+		name = n;
+	}
+	public void attack() {
+		System.out.println("I'm attacking");
+        }
+}
+
+extends - Java keyword used to create a subclass
+ex: public class Mage extends Character{
+You cannot extend your class to multiple classes, but you can have subclasses of subclasses
+    public class Healer extends Mage{
+Obtains all of the info from Mage, which also has all of the info from Character
+Subclasses inherit all instance variables and methods except for constructors
+The private keyword will restrict the information in the variable to only that class
+    private int health;
+If a subclass of the class where health is declared tries to call health, it will get an error
+Private instance variables are inherited by subclasses but cannot be accessed by the subclass
+one should use protected instead when making an instance variable which will make it accessible to the class and all of its subclasses only
+    protected int health;
+This will allow any subclasses that extend to the class with variable health to access it
+Method Inheritance - subclasses can create their own version of inherited methods
+    this is called overriding
+        note that this is different from overloading a method because they are not in the same class
+
+public String toString() {
+        String s = name + " ";
+        s += health + " ";
+        s += damage + " ";
+        s += xp;
+        return s;
+    }
+
+Here is the toString() method for character in order to tailor it for the Mage class, one can either override the toString() method of Character and make a totally separate one for Mage
+
+public String toString() {
+        String s = name + " ";
+        s += health + " ";
+        s += damage + " ";
+        s += xp;
+	s += energy
+        return s;
+    }
+Or one can call the superclass version of a method by using the super keyword
+   String s = super.toString() + energy;  
+
+10/15/14
+Aim: How do we get text input?
+To create a text-based RPG, we will need user text-based input.
+We will use the scanner class.
+It can get input from user, other files, devices,etc.
+System.in:terminal input
+Text input during your program:
+    Scanner
+        Java class to get input from the terminal or files
+	        Scanner can = new Scanner( System.in );
+        	can.nextLine();
+            This will make your program wait until the user has typed something and hit return
+            Returns what the user entered, as a string.
+	            can.nextInt(), nextDouble() ...
+            works like next but returns an int, double...
+            If the user enters the wrong type, an error occurs
+
+import java.util.*;//this imports all utility classes that are not directly included with Java, such as Scanner
+public class Input{
+    public static void main(String[] args){
+        Scanner s = new Scanner( System.in );
+        int x;
+        String t;
+
+        System.out.print("Enter a string: ");
+        t = s.nextLine();
+        System.out.print("Enter an int: ");
+        x = s.nextInt();
+        System.out.println(t);
+        System.out.println(x);
+    }
+}
+
+This code prompts for a string first, then an int. Then it prints the string and int the user entered. If the user entered a different type, such as a doble when it called for int, then this error would occur: InputMismatchException.
+
+
+10/16/14
+Aim: How can classes in the same hierarchy interact?
+You can use the super constructor by just using super. Super on its own refers to the super classes’ constructor.
+
+public Character() {
+	health = 10;
+	damage = 8;
+	xp = 0;
+}
+public Mage() {
+	super(“Molly”);
+	damage += 10;
+	energy = 5;
+}
+public Warrior() {
+	super(“Wally”);
+	health += 10;
+	damage = 8;
+}
+
+Method Inheritance
+To call a superclass constructor, use super by itself
+ex: super();
+    super("dude");
+if the super class does not have a constructor it will not work
+Constructors are not inherited, but java automatically assumes the first line of a constructor is a call to the superclasses default constructor, unless you explicitly call a different superclass constructor.
+Call to super must be the first statement in the constructor or you will get an error.
+
+public Mage() {
+	damage += 10;
+	energy = 5;
+}
+
+Java has a class called Object. At the top of every class hierarchy is Object, which is why every class gets a default constructor.
+Object class
+All classes are subclasses of Object unless they explicitly extend a different class
+The Object class contains a few basic methods such as:
+
+    .toString
+    .equals
+    default constructor
+
+Variable type vs. Object type
+Variable type
+the type declared in your code.
+
+String s ⇒ Variable type is String
+Object o ⇒ Variable type is Object
+Mage m ⇒ Variable type is Mage
+
+Variables can only use methods that are defined in their variable type class.
+
+o.toString();
+o.attack(); will not work 
+
+Object type
+The type created in memory.
+Tied to which constructor was used to create the object.
+
+String s = new String() ⇒ Object type is String
+Object o = new Object() ⇒ Object type is Object
+Mage m = new Mage() ⇒ Object type is Mage
+
+Variables can refer to any object that is below the variable type in a class hierarchy.
+
+Object o ⇒ o can contain any kind of object
+Object o = new String();          o is an Object variable that refers to a String object
+Character c = new Mage();     c is a Character variable that refers to a Mage object
+
+10/17/14 
+Aim: Object Type vs Variable Type Revisited
+A variable can refer to any object below its type in a class hierarchy.
+    Character variable can refer to a Mage or a Warrior
+    Mage variable can only be a Mage.
+    Consider Object o = new Mage();
+        Left side is variable type (object, in this case)
+        Right side is object type, determined by the constructor used (Mage, in this case).
+A variable can only use the methods declared in its variable type.
+    o.toString();
+        Valid because the method is in the object class and accessible.
+    o.attack();
+        Does not work because o cannot access the attack method.
+        Do not get confused and think that o doesn’t have an attack method
+            o is an object that has the method thanks to the constructor; it just can’t get to it.
+            o has all the Mage methods but cannot use them because its variable type is too generic (meaning: o is too high in the class hierarchy).
+        The variable type determines what methods it CAN use, not what methods EXIST.
+When a method is called, the object type's version is used.
+    Meaning: the object type determines HOW the method will be used.
+    o has toString(), but uses the Mage class’s version of toString()
+
+10/20/14 
+Aim: Stuyablo Assignment
+Minimum Requirements -
+    2 different playable character types
+    2 different enemy character types (ie. generic enemy & boss)
+    1 Game driver class 
+        allow interactions: enter name, select character types, begin game interaction, pick up item, etc.
+
+10/23/14
+Aim: How can we get random numbers in Java?
+Random class - Designed for generating random numbers
+Imported through java.util.*
+import java.util.*;
+Methods:
+.nextDouble() - Returns a random floating point number in the range 0 <= n < 1
+.nextInt() - Returns a random integer in the range -2^31 <= n < 2^31
+.nextInt(int bound) - Returns a random integer in the range 0 <= n < bound
+Mathematical operations can be used along with the random number generating to change the possible values.
+Testing Random Class Usage:
+	Random r = new Random()
+	for(int i=0; i < 10; i++) {
+		System.out.println(r.nextInt());
+		System.out.println(r.nextInt(10));
+		System.out.println(r.nextDouble());
+		}
+10/24/14
+Aim: What is the Aim?
+What does super do?
+super.methodname() calls methodname() in this class's superclass. That is, given the three classes below (which should be in separate files):
+
+public class Below extends Above {
+	public void teletubbies() {
+		super.teletubbies();
+		System.out.println("Below");
+	}
+	public void quinoa() {
+		super.quinoa();
+	}
+	public Below() {
+		int x = 1389;
+	}
+	public static void main(String[] args) {
+		Below a = new Below();
+		a.teletubbies();
+	}
+}
+
+public class Above extends Master {
+	public void teletubbies() {
+		System.out.println("Above");
+	}
+	public void quinoa() {
+		super.quinoa();
+	}
+	public Above() {
+		int y = 86400;
+	}
+	public static void main(String[] args) {}
+}
+
+public class Master {
+	protected int x,y,z;
+	public void teletubbies() {
+		System.out.println("5");
+	}
+	public void quinoa() {
+		System.out.println("Quinoa");
+	}
+	public Master() {
+		int z = -273;
+	}
+	public static void main(String[] args) {}
+}
+
+super.teletubbies() in class Below calls telletubies() in Above.java, such that running Below.java should print out "Above", then "Below".
+In your methods, you don't have to use super; it is possible to have your identically named methods to do totally different things. For example, teletubbies() in class Below could instead print a number.
+Note that super can only be used to call a superclass one level up (the class that is being extended). In the above example, super.teletubbies() in class Below calls teletubbies() in class Above, and not in class Master, which is two levels up.
+If you want to call a method in a superclass two levels up, you can use a super chain, demonstrated in the quinoa() methods in the above example. quinoa() in class Below does the same thing as quinoa() in class Above and Master.
+Constructors are special; they are not inherited, unlike other methods.
+Instead, Java automatically calls the superclass's default constructor, which is equivalent to super(). This means putting super() in the first line of the constructor is redundant, unless you want to specify parameters (ex. super(int length); ). As constructors are not inherited, you cannot override (this is distinct from overloading) a constructor. Also, constructors must at least do what the superclass's constructor does (see second sentence of this paragraph). For example, the constructor in class Below will z, y, x, in that order.
+
+10/28/14
+Aim:How do we work with arrays?
+Array
+     Simplest Java data structure. A data structure hold multiple pieces of data(ex. dictionaries, lists etc.)
+      An array is a contiguous block of memory used to store multiple values of the same type. 
+Arrays have a fixed size
+      An array can be reinitialized to a new , but will erase all the data stored in it.
+      Each element will contain the default value for the array's data type until modified.
+Basic Array syntax
+
+int[] ray; //Array declaration
+ray = new int[10]; //Array initialization
+ray.length; //returns length of the array
+System.out.println(ray); //prints out memory location
+
+[ ]s are used to access values in the array.
+
+ray[0]=75;
+ray[i]=75; //works but 0<=i<ray.length
+
+Initilizer Lists
+Used to create arrays with preset values
+
+char[] cray = {'a','b','c'};
+//This will create a 3 character array with the values 'a', 'b'' and 'c'
+ 
+10/30/14
+Aim: How can we work with Arrays?
+
+// Assuming Stat class is already defined;
+public int findMin(){
+	int guess = data[0];
+	for (int i = 0; i < data.length ; i++)
+		if (guess > data[i])
+			guess = data[i];
+	return guess;
+}			
+
+"Hold on, friend. Aren't you missing some necessary curly braces for that 'if'?"
+Actually, no. For Control-Flow Statements (Conditional, Loops, etc.), no brackets are necessary if there is only a single line of code in its code block as Java assumes they are there. However, you may include brackets if you wish.
+"Then why can 'for' contain the two line if-then statement and not need brackets?"
+This is due to the ability to nest the control-flow statements where the resulting code-block of a nested control-flow statement will not be considered part of the original control-flow statement by Java.
+This should not, however, make you get used to not using brackets. This may eventually become detrimental if you need to add more code to your code-block, such in adding print-statements in order to bug-fix. Use of this short-cut/brackets is under your discretion, as long as it does not interfere with the effectiveness of your code.
+
+ 
