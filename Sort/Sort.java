@@ -165,7 +165,7 @@ public class Sort {
       There are no true swaps only shifts, but 
       a swap is 3 assignments, and a shift is 1.
       Use math to figure out how they can be equated.
-
+      3 shifts = 1 swap
       Use System.currentTimeMillis() to get the 
       current time in milliseconds
 
@@ -174,6 +174,14 @@ public class Sort {
       ====================*/
     public long insertion() {
 	return -1;
+	for (int x = 0;x < this.size();x++){
+	    int sortThis = list[x];
+	    int count = x;
+	    while (sortThis < list[count-1])  {
+		list[count] = list[count-1];
+		count --;
+	    }
+	}
     }
 
 
