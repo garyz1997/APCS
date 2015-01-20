@@ -113,6 +113,8 @@ public class route {
 	
 	public void generalRoute(){
 		
+		
+		
 	}
 
 	
@@ -120,60 +122,4 @@ public class route {
 	route r = new route();
 
     }
-}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
