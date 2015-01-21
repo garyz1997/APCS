@@ -29,6 +29,8 @@ public class route {
 	double BrokenEscalator2 = 0.0;
 	double BrokenEscalator3 = 0.0;
 	double BrokenEscalator4 = 0.0;
+	
+	int preference; //get from user input; 1 means they like escalators and 0 means they don't, so they like stairs
 
 	
 
@@ -36,8 +38,8 @@ public class route {
 	int startF = 0; //Beginning floor
 	int endF = 0; //End floor
 	
-	char start = ''; //left(l), middle(m), or right(r) beginning section
-	char end = ''; //left(l), middle(m), or right(r) beginning section
+	//char start = 0; //left(l), middle(m), or right(r) beginning section
+	char end = 0; //left(l), middle(m), or right(r) beginning section
 	
 	
 
@@ -60,7 +62,7 @@ public class route {
 				endR = endRoom % 100;
             }
 			else {
-				String preference;
+				
 				int numBroken;
 				int esc2;
 				System.out.println("Would you prefer escalators? 1 means yes and 0 means no or no preference: ");
@@ -88,21 +90,21 @@ public class route {
 		}
 	
 	public void setDir(){//sets startR and endR
-		if (((startR >= 0) && (startR <= 12)){
+		if ((startR >= 0) && (startR <= 12)){
 			start = 'r';
 		}
 		else if (startR <= 27){
 			start = 'm';
 		}
-		else{start = 'r'}
+		else{start = 'r';}
 		
-		if (((endR >= 0) && (endR <= 12)){
+		if ((endR >= 0) && (endR <= 12)){
 			end = 'r';
 		}
 		else if (endR <= 27){
 			end = 'm';
 		}
-		else{end = 'r'}
+		else{end = 'r';}
 	}
 	
 	public void escalatorRoute(){
@@ -111,7 +113,19 @@ public class route {
 	
 	}
 	
-	public void generalRoute(){
+			
+	public void stairsRoute(){
+		if (preference == 0){
+			//determines what part of hallway the end destination is in, which determines stair case(s) used
+			if (endR>=27)
+				end=l;
+			if (endR< 13)
+				end=r;
+			else
+				end=m;
+			if (endR=l)
+				System.out.println()
+		}
 		
 		
 		
@@ -122,4 +136,60 @@ public class route {
 	route r = new route();
 
     }
+}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
