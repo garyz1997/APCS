@@ -31,8 +31,12 @@ public class route
     ArrayList<Double> BrokenEscalators = new ArrayList<Double>();
 
     int preference; //get from user input; 1 means they like escalators and 0 means they don't, so they like stairs
-
     
+    int nearestStairs=12;//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    int oneFloor=14;//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    int halfHall=23;//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    int totalTime=0;
+    int betweenEsc=19;
 
 
     int startF = 0; //Beginning floor
@@ -140,24 +144,36 @@ public class route
 		System.out.println("Walk up to the second floor.");
 		currentesc++;
 		numEsc = Math.abs(endF - startF - 1) / 2;
+		totalTime+=oneFloor;
 	    }
 	if (currentesc == 10) 
 	    {
 		System.out.println("Walk down to the ninth floor.");
 		currentesc--;
-		numEsc = Math.abs(endF - startF + 1) / 2;
+		numEsc = Math.abs(endF - startF + 1) / 2;               
+		totalTime+=oneFloor;
 	    }
 
 	if (endF - startF < 0)
 	    {
 		for (int a = 0;a<numEsc;a++) 
 		    {
+			if (currentesc-2 == 1)
+			    {
+				System.out.println("Walk down 2 floors to your destination.");
+				totalTime+=2*oneFloor;
+				currentesc-=2;
+				break;
+			    }
 			System.out.println("Walk to and take the "+currentesc+"-"+(currentesc-2)+" escalator");
 			currentesc=currentesc-2;
+			totalTime+=Esc+betweenEsc;
 		    }
+		totalTime-=betweenEsc;
 		if (currentesc != endF)
 		    { 
 			System.out.println("Take the stairs down one floor.");
+			totalTime+=oneFloor;
 		    }
 	    }
 	
@@ -165,15 +181,28 @@ public class route
 	    {
 		for (int a = 0;a<numEsc;a++) 
 		    {
+			if (currentesc+2 == 10)
+			    {
+				System.out.println("Walk up 2 floors to your destination.");
+				totalTime+=2*oneFloor;
+				currentesc+=2;
+				break;
+			    }
 			System.out.println("Walk to and take the "+currentesc+"-"+(currentesc+2)+" escalator");
 			currentesc=currentesc+2;
+			totalTime+=Esc+betweenEsc;
 		    }
-		if (currentesc!= endF) 
-		    System.out.println("Take the stairs up one floor.");
+		totalTime-=betweenEsc;
+		if (currentesc!= endF)
+		    { 
+			System.out.println("Take the stairs up one floor.");
+			totalTime+=oneFloor;
+		    }
 	    }
 	if (end == 'l') System.out.println("Walk left to your destination.");
 	if (end == 'm') System.out.println("Walk towards the middle of the hallway to your destination.");
 	if (end == 'r') System.out.println("Walk right to your destination.");
+	totalTime+=nearestStairs;
     }
     
     /*~~~~~~~~~~~~~~~~~~~~~~~BROKEN ESCALATOR~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -187,7 +216,27 @@ public class route
 	double thisFloorEscUp = startF + ((startF + 2) * 0.1);
 	double thisFloorEscDown= startF + ((startF-2) * 0.1);
 	//what escalators to take
-	
+	if (currentEsc == 1)
+            {
+                System.out.println("Walk up to the second floor.");
+                currentEsc=2;
+		thisFloorEscUp = 2 + ((4) * 0.1);
+		thisFloorEscDown= 2 + ((0) * 0.1);
+                numEsc = Math.abs(endF - 2) / 2;
+		startF=2;
+		totalTime+=oneFloor;
+            }
+        if (currentEsc == 10)
+            {
+                System.out.println("Walk down to the ninth floor.");
+                currentEsc--;
+                thisFloorEscUp = startF - 1 + ((startF + 1) * 0.1);
+                thisFloorEscDown= startF - 1 + ((startF- 3) * 0.1);
+                numEsc = Math.abs(endF - startF + 1) / 2;
+		startF=9;
+                totalTime+=oneFloor;
+            }
+
 	if (numEsc == 0) 
 	    this.stairsRoute();
 	
@@ -199,52 +248,84 @@ public class route
 			if (BrokenEscalators.contains(thisFloorEscUp))
 			    {
 				System.out.println("Walk to the East staircase and up one floor to floor" + (startF+1));
+				totalTime+=oneFloor;
 				currentEsc++;
 				for (int a = 0; a < numEsc; a++) 
 				    {
 					if (BrokenEscalators.contains(currentEsc + (currentEsc + 2) / 10.0))
 					    {
 						// double thisEsc= thisFloorEsc+ 1.1 + (a* 1.1);
-			    
-						System.out.println("Walk to and walk up the" + currentEsc + "-" + (currentEsc+2));
+						if (currentEsc+2 == 10) 
+						    {
+							System.out.println("Walk up 2 floors to your destination.");
+							totalTime+=2*oneFloor;
+							break;
+						    }
+						System.out.println("Walk to and walk up the " + currentEsc + "-" + (currentEsc+2));
+						totalTime+=UpEsc+betweenEsc;
 						currentEsc+=2;
 					    }
 			
 					else
 					    { //still part of for loop
-			    
+						if (currentEsc+2 == 10)
+                                                    {
+                                                        System.out.println("Walk up 2 floors to your destination.");
+                                                        totalTime+=2*oneFloor;
+                                                        break;
+                                                    }
 						System.out.println("Walk to and take the " + currentEsc + "-" + (currentEsc+2));
+						totalTime+=Esc+betweenEsc;
 						currentEsc+=2;
 
 					    }
 
 				    }
+				totalTime-=betweenEsc;
 			    }
 		
 			else 
 			    { //the floor you are on has a working escalator and you have an odd # of floors and are going up
-				System.out.println ("Walk to and take the" + currentEsc + "-" + (currentEsc+2));
+				System.out.println ("Walk to and take the " + currentEsc + "-" + (currentEsc+2));
+				totalTime+=Esc;
+				currentEsc= startF+2;
 				for (int a = 1; a < numEsc; a++) 
 				    { //starts at one bc an escalator has already been taken
 					thisFloorEscUp+= 2.2;
-					if (BrokenEscalators.contains(thisFloorEscUp + (a* 2.2)))
+					if (BrokenEscalators.contains(thisFloorEscUp))
 					    {
 						// double thisEsc= thisFloorEsc+ 1.1 + (a* 1.1);
+						if (currentEsc+2 == 10)
+                                                    {
+                                                        System.out.println("Walk up 2 floors to your destination.");
+                                                        totalTime+=2*oneFloor;
+                                                        break;
+                                                    }
+						System.out.println("Walk to and walk up the " + currentEsc + "-" + (currentEsc+2));						
 						currentEsc+=2;
-						System.out.println("Walk to and walk up the" + currentEsc + "-" + (currentEsc+2));
+						totalTime+=UpEsc+betweenEsc;
 					    }
 			
 					else
 					    { //still part of the for loop
-						currentEsc+=2;
+						if (currentEsc+2 == 10)
+                                                    {
+                                                        System.out.println("Walk up 2 floors to your destination.");
+                                                        totalTime+=2*oneFloor;
+                                                        break;
+                                                    }
 						System.out.println("Walk to and take the " + currentEsc + "-" + (currentEsc+2));
+						currentEsc+=2;
+						totalTime+=Esc+betweenEsc;
 			    
 
 					    }
 
 				    }
+				totalTime-=betweenEsc;
 				System.out.println("Walk up the West staircase one floor up to floor " + (currentEsc + 1));
-				System.out.println(currentEsc);
+				totalTime+=oneFloor;
+				//System.out.println(currentEsc);
 			    }
 		    }//closes scenario where you have an odd # of floors
 		else 
@@ -252,19 +333,35 @@ public class route
 		
 			for (int a=0; a<numEsc; a++) 
 			    {
-				if (BrokenEscalators.contains(thisFloorEscUp + (2.2) * a))
+				if (BrokenEscalators.contains(thisFloorEscUp))
 				    {
+					if (currentEsc+2 == 10)
+					    {
+						System.out.println("Walk up 2 floors to your destination.");
+						totalTime+=2*oneFloor;
+						break;
+					    }
 					System.out.println("Walk to and walk up the "+ currentEsc + "-" + (currentEsc + 2) );
 					currentEsc+=2;
-			
+					thisFloorEscUp+=2.2;
+					totalTime+=UpEsc+betweenEsc;
 				    }
 		
 				else 
 				    {
+					if (currentEsc+2 == 10)
+					    {
+						System.out.println("Walk up 2 floors to your destination.");
+						totalTime+=2*oneFloor;
+						break;
+					    }
 					System.out.println("Walk to and take the " + currentEsc + "-" + (currentEsc + 2));
 					currentEsc+=2;
+					thisFloorEscUp+=2.2;
+					totalTime+=Esc+betweenEsc;
 				    }
 			    }
+			totalTime-=betweenEsc;
 		    }
 	    }
 	    
@@ -277,48 +374,79 @@ public class route
 			if (BrokenEscalators.contains(thisFloorEscDown))
 			    { //escalator on your floor is broken
 				System.out.println("Walk to the West staircase and down one floor to floor " + (startF-1));
+				totalTime+=oneFloor;
+				currentEsc--;
 				for (int a = 0; a < numEsc; a++) 
 				    {
-					if (BrokenEscalators.contains(thisFloorEscDown + 2.2 - (a * 2.2)))
+					if (BrokenEscalators.contains(currentEsc+(currentEsc-2)/10.0))
 					    {
-						currentEsc-=1;
+                                                if (currentEsc-2 == 1)
+                                                    {
+                                                        System.out.println("Walk down 2 floors to your destination.");
+                                                        totalTime+=2*oneFloor;
+                                                        break;
+                                                    }
 						System.out.println("Walk to and walk down the " + currentEsc + "-" + (currentEsc-2));
-						currentEsc-=1;
+						currentEsc-=2;
+						totalTime+=DownEsc+betweenEsc;
 					    }
 		    
 					else
 					    { //still part of for loop
-						currentEsc-=1;
+						if (currentEsc-2 == 1)
+                                                    {
+                                                        System.out.println("Walk down 2 floors to your destination.");
+                                                        totalTime+=2*oneFloor;
+                                                        break;
+                                                    }
 						System.out.println("Walk to and take the " + currentEsc + "-" + (currentEsc-2));
-						currentEsc-=1;
-			
+						currentEsc-=2;
+						totalTime+=Esc+betweenEsc;
 					    }
 		    
 				    }
+				totalTime-=betweenEsc;
 			    }//closes the scenario where u have a broken esc on your floor
 	    
 			else 
-			    { //the floor you are on has a working escalator and you have an odd # of floors and are going up
+			    { //the floor you are on has a working escalator and you have an odd # of floors and are going down
 				System.out.println ("Walk to and take the " + currentEsc + "-" + (currentEsc-2));
-			
+				currentEsc-=2;
+				totalTime+=Esc;
 				for (int a = 1; a < numEsc; a++) 
 				    { //starts at one bc an escalator has already been taken
 					thisFloorEscDown-= 2.2;
-					if (BrokenEscalators.contains(thisFloorEscDown - (a * 2.2)))
+					if (BrokenEscalators.contains(thisFloorEscDown))
 					    {
+						if (currentEsc-2 == 1)
+                                                    {
+                                                        System.out.println("Walk down 2 floors to your destination.");
+                                                        totalTime+=2*oneFloor;
+                                                        break;
+                                                    }
 						// double thisEsc= thisFloorEsc+ 1.1 + (a* 1.1);
-						currentEsc -= 2;
 						System.out.println("Walk to and walk down the" + currentEsc + "-" + (currentEsc-2));
+						currentEsc-=2;
+						totalTime+=DownEsc+betweenEsc;
 					    }
 		    
 					else
 					    { //still part of the for loop
-						currentEsc-=2;
+						if (currentEsc-2 == 1)
+                                                    {
+                                                        System.out.println("Walk down 2 floors to your destination.");
+                                                        totalTime+=2*oneFloor;
+                                                        break;
+                                                    }
 						System.out.println("Walk to and take the " + currentEsc + "-" + (currentEsc-2));
+						currentEsc-=2;
+						totalTime+=Esc+betweenEsc;
 					    }
 				    }
+				totalTime-=betweenEsc;
 				System.out.println("Walk down the West staircase one floor down to floor " + (currentEsc - 1));
-				System.out.println(currentEsc);
+				totalTime+=oneFloor;
+				//System.out.println(currentEsc);
 			    }
 		    }//closes scenario w odd # flights
 	
@@ -328,23 +456,43 @@ public class route
 	    
 			for (int a =0; a<numEsc; a++) 
 			    {
-				System.out.println(a);
-				if (BrokenEscalators.contains(currentEsc + (currentEsc - 2) / 10.0))
+				//System.out.println(a);
+				if (BrokenEscalators.contains(currentEsc+(currentEsc-2)/10.0))
 				    {
+					if (currentEsc-2 == 1)
+					    {
+						System.out.println("Walk down 2 floors to your destination.");
+						totalTime+=2*oneFloor;
+						break;
+					    }
 					System.out.println ("Walk to and walk down the " + currentEsc + "-" + (currentEsc-2));
 					currentEsc-=2;
+					thisFloorEscDown-=2.2;
+					totalTime+=DownEsc+betweenEsc;
 				    }
 				else 
 				    {
+					if (currentEsc-2 == 1)
+					    {
+						System.out.println("Walk down 2 floors to your destination.");
+						totalTime+=2*oneFloor;
+						break;
+					    }
 					System.out.println("Walk to and take the " + currentEsc + "-" + (currentEsc-2));
 					currentEsc -= 2;
-			    
+					thisFloorEscDown-=2.2;
+					totalTime+=Esc+betweenEsc;
 				    }
 			    }
+			totalTime-=betweenEsc;
 	    
 		    }
 	
 	    }//closes scenario if you are going down at all
+        if (end == 'l') System.out.println("Walk left to your destination.");
+	if (end == 'm') System.out.println("Walk towards the middle of the hallway to your destination.");
+        if (end == 'r') System.out.println("Walk right to your destination.");
+        totalTime+=nearestStairs;
     }
 
 
@@ -367,21 +515,23 @@ public class route
 			if (end=='l')
 			    System.out.println("Walk to the Hudson staircase and up " + (endF-startF) + " floors to floor" + " " + endF);
 			else if (end=='r')
-			    System.out.println("Walk to the Hudson staircase and up " + (endF-startF) + " floors to floor" + " " + endF);
+			    System.out.println("Walk to the East staircase and up " + (endF-startF) + " floors to floor" + " " + endF);
 			else
-			    System.out.println("Walk to the Hudson staircase and up " + (endF-startF) + " floors to floor" + " " + endF);
+			    System.out.println("Walk to the West staircase and up " + (endF-startF) + " floors to floor" + " " + endF);
 		
 		    }
 		if (endF < startF) 
 		    {
 			if (end=='l')
-			    System.out.println("Walk to the Hudson staircase and down " + (endF-startF) + " floors to floor" + " " + endF);
+			    System.out.println("Walk to the Hudson staircase and down " + (startF-endF) + " floors to floor" + " " + endF);
 			else if (end=='r')
-			    System.out.println("Walk to the Hudson staircase and down " + (endF-startF) + " floors to floor" + " " + endF);
+			    System.out.println("Walk to the East staircase and down " + (startF-endF) + " floors to floor" + " " + endF);
 			else
-			    System.out.println("Walk to the Hudson staircase and down " + (endF-startF) + " floors to floor" + " " + endF);
+			    System.out.println("Walk to the West staircase and down " + (startF-endF) + " floors to floor" + " " + endF);
 		    }
 	    }   
+	totalTime+=Math.abs(endF-startF)*oneFloor;//14 sec per flight of stairs//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	totalTime+=nearestStairs;//12 sec to walk to nearest staircase//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     }
     
     public void sameFloor()
@@ -401,9 +551,9 @@ public class route
 			    System.out.println("Walk left to your destination.");
 			else //end=r 
 			    System.out.println("Walk right to your destination.");
-		    }
+		    }		
+		totalTime+=halfHall;//it takes an average of 23 sec to walk down half the whole hallway
 	    }
-	
     }
     
     public int getSize()
@@ -425,7 +575,7 @@ public class route
 		else
 		    r.workingEscalatorRoute();
 	    }
-	
+	System.out.println("Your journey will take "+r.totalTime/60+" minutes and "+r.totalTime%60+" seconds.");
 	
     }
     
