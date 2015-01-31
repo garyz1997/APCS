@@ -55,6 +55,7 @@ public class TextFormatter
 
     public String convertItalics()
     {
+	/*
 	String ans = "";
 	int match = 0;
 	for (int a = 0;a<line.length()-3;a++)
@@ -115,6 +116,42 @@ public class TextFormatter
 		ans+=backwards.charAt(h);
 	    }
 	return ans;
+     */
+	String ans = "";
+	int num_=0;
+	boolean even = true;
+	for (int a = 0;a<line.length();a++)
+	    {
+		if (line.charAt(a) == '_')
+		    {
+			num_++;
+			a++;
+		    }
+	    }
+	if (num_ %2 ==1)
+	    {
+		even = false;
+	    } 
+	if (! even) return line;
+
+	for (int b = 0;b<line.length();b++)
+	    {
+		if ((line.charAt(b) == '_') && (even))
+		    {
+			ans+="<I>";
+			even = false;
+		    }
+		else if ((line.charAt(b) == '_') && (! even))
+		    {
+			ans+="</I>";
+			even = true;
+		    }
+		else
+		    {
+			ans+=line.charAt(b);
+		    }
+	    }
+	return ans;
     }
 
 
@@ -127,7 +164,7 @@ public class TextFormatter
 	System.out.println(o.countStrings("a"));
 	System.out.println(o.countStrings("b"));
 	System.out.println(o.countStrings("c"));
-	TextFormatter a = new TextFormatter("This is _very_ _good_.");
+	TextFormatter a = new TextFormatter("_This_ is _very_ _good_.");
 	System.out.println(a.convertItalics());
     }
 
