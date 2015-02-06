@@ -17,8 +17,44 @@ public class recursion
 	    return n-1;
 	return fib2(n-1,values) + fib2(n-2,values);
     }
+    public static double sqrt(int n)
+    {
+	return sqrthelper(n,n/2);
+    }
+    public static double sqrthelper(int n, double guess)
+    {
+	double diff = Math.pow(guess,2)-n;
+	if (Math.abs(diff) < 0.001)
+	    {
+		return guess;
+	    }
+	//System.out.println(guess-diff/2.0);
+	return sqrthelper(n,(n/guess+guess)/2);
+    }
+    public static ArrayList<String> scramble(String s)
+    {
+	ArrayList<String> ans = new ArrayList<String>();
+	for (int x = 1; x < s.length();x++)
+	    {
 
-    
+	    }
+    }
+    public static SrrayList<String> scramblehelper(String s)
+    {
+	ArrayList<String> strings = new ArrayList<String>();
+	String anstr = "";
+	int len = s.length();
+	if (str.length == 1)
+	    {
+	    strings.add(s);
+	    return strings;
+	    }
+	for (x = 0; x < str.length();x++)
+	    {
+		strings.add((String)s.charAt(0));
+	    }
+	
+    }
     public static void main(String[] args)
     {
 	ArrayList<Long> vals = new ArrayList<Long>();
@@ -31,29 +67,14 @@ public class recursion
 	    {
 		System.out.println("Fib of "+ x + " is " +fib2(x,vals));
 	    }
+	for (int x =10;x<=100;x+=10)
+	    {
+		System.out.println("sqrt of " + x + " is "+sqrt(x));
+	    }
 
     }
 }
 /*
-    Fibonacci2
-        Takes 2 parameters, a number (n) and a list (values)
-        Returns the nth term in the fibonacci series, (1, 1, 2, 3, 5, 8, ...)
-        The second parameter should be a list (either an array or ArrayList) that will contain any previously computed value. The purpose of this list is to make the method run much faster than the standard way, which is O(2^n)
-    sqrt
-        Returns the square root of a number using the following algorithm:
-            Make any guess for the square root (like n/2, 1, whatever)
-            Check whether your guess times itself is close to the original number (say within 0.001, but you can change this value)
-            If the guess isn't close enough, compute a new guess:
-                guess = ( n / guess + guess ) / 2
-            If the guess is close enough, return the guess
-            Example of the algorithm:
-                N = 100, guess = 1   //guess not close enough
-                guess = 50.5             //guess not close enough
-                guess = 26.240099   //guess not close enough
-                guess = 15.025530   //guess not close enough
-                guess = 10.840436   //guess not close enough
-                guess = 10.032578   //guess not close enough
-                guess = 10.000052   //Good Enough!
     scramble
         Takes a string as a parameter (s)
         Returns an ArrayList containing all the possible ways of arranging the letters of s
