@@ -33,14 +33,44 @@ public class recursion
     }
     public static ArrayList<String> scramble(String s)
     {
+	int len = s.length();
+	ArrayList<Boolean> used = new ArrayList<Boolean>();
+	for (int x = 0;x<len;x++)
+	    {
+		used.add(false);
+	    }
+	System.out.println(used);
+	ArrayList<String> blah = new ArrayList<String>();
+	blah.add("hi");
+	return blah;
+	/*
 	ArrayList<String> ans = new ArrayList<String>();
 	for (int x = 1; x < s.length();x++)
 	    {
 
 	    }
+
+	*/
     }
-    public static SrrayList<String> scramblehelper(String s)
+    
+    public static ArrayList<String> scramblehelper(int pos,String s,ArrayList<String> combos,ArrayList<Boolean> used)
     {
+	ArrayList<String> combosnew = new ArrayList(combos);
+	ArrayList<Boolean> usednew = new ArrayList(used);
+	int len = s.length();
+	if (combos.get(0).length()==len)
+	    return combos;
+	for (int x = 0;x<used.size();x++)
+	    {
+		if (! used.get(x))
+		    {
+			combosnew.set(pos, combos.get(pos)+s.charAt(x));
+			usednew.set(x,true);
+			scramblehelper(pos,s,combosnew,usednew);
+		    }
+	    }
+	return combos;
+	/*	
 	ArrayList<String> strings = new ArrayList<String>();
 	String anstr = "";
 	int len = s.length();
@@ -54,13 +84,15 @@ public class recursion
 		strings.add((String)s.charAt(0));
 	    }
 	
+	*/	
     }
+
     public static void main(String[] args)
     {
 	ArrayList<Long> vals = new ArrayList<Long>();
 	for (int x = 0;x<10;x++)
 	    {
-		System.out.println(factorial(x));
+		System.out.println(x+" factorial is "+factorial(x));
 	    }
 	
 	for (int x = 1;x<10;x++)
@@ -69,9 +101,10 @@ public class recursion
 	    }
 	for (int x =10;x<=100;x+=10)
 	    {
-		System.out.println("sqrt of " + x + " is "+sqrt(x));
+		System.out.println("sqrt of " + x + " is about "+sqrt(x));
 	    }
-
+	System.out.println(scramble("hi"));
+	System.out.println("I give up on scramble :(");
     }
 }
 /*
