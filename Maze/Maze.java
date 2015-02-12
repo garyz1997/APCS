@@ -6,6 +6,10 @@ public class Maze {
     int maxX;
     int maxY;
 
+    static final String clear = "\033[?25l";
+    static final String hide = "\033[?25l";
+    static final String go = "\033[?25l";
+
     public Maze() {
 	maxX=40;
 	maxY=20;
@@ -48,15 +52,21 @@ public class Maze {
     public boolean solveHelper( int x, int y ) {
 	if (board[x][y] == '$')
 	    return true;
-	if (board[x][y] == '#')
+        if (board[x][y] != ' ')
 	    return false;
 	board[x][y] = '.';
 	if (solveHelper(x+1,y)){
 	    board[x][y] = '+';
 	    return true;
 	}
-	//solveHelper(x-1,y);
-	//solveHelper(x,y-1);
+	if (solveHelper(x-1,y)){
+	    board[x][y] = '+';
+	    return true;
+	}
+	if (solveHelper(x,y-1)){
+	    board[x][y] = '+';
+	    return true;
+	}
 	if (solveHelper(x,y+1)){
 	    board[x][y] = '+';
 	    return true;
