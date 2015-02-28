@@ -4,7 +4,7 @@ public class TC
     public int cols = 4;
     public int[][] field = {{1,0,4,0},{0,0,3,1},{4,0,2,0},{0,2,0,4}};
     public int sum = 0;
-    public int[] numbers= new int[rows+1];
+    public int[] numbers= new int[rows+1];//unused numbers [0,1,0,0,1]
     public int[] coord = new int[2];
     public int missingNums;
 
@@ -22,18 +22,29 @@ public class TC
 	    }
     }
     
-    public boolean solve( int x, int y, int count) {
-	this.nums(x);
-	int z = 0;
-	for (int a = 1;a<=rows;a++)
+    public boolean solve() {
+	for (int x = 0;x<rows;x++)
 	    {
-		if (numbers[a] != 1)
+		this.nums(x);
+		int z = 0;
+		for (int a = 1;a<=cols;a++)
 		    {
-			z = a;
-			break;
+			if (numbers[a] != 1)
+			    {
+				numbers[a] = 1;
+				z = a;
+				break;
+			    }
+		    }
+		for (int b = 0; b<cols;b++)
+		    {
+			if (field[x][b] != 0)
+			    {
+				field[x][b]=z;
+				x--;
+			    }
 		    }
 	    }
-
 	this.sumRow();
         if (isSolved)
             return true;
@@ -95,6 +106,43 @@ public class TC
 	    return ans;
 	}
 	
+    public static boolean solve(int[][]puzzle){
+	//using backtracking
+	for(int i = 0; i<9; i++){
+	    for(int j = 0; j<9; j++){
+		if(puzzle[i][j]!=0){
+		    continue;
+		}
+		for(int n = 1; n<10; n++){ //testing posabilities
+		    if(isTrue(puzzle, i, j, n)){
+			puzzle[i][j] = n;
+			if(solve(puzzle))
+			    return true;
+			else{
+			    puzzle[i][j] = 0; //backtrack here
+			}
+		    }
+		}
+		return false; //no possibilities for the empty space
+	    }
+	}
+	return true; //hits end of the puzzle
+    }
+    //checks to see if an int possible in the puzzle at space [i][j] is acceptable
+    public static boolean isTrue(int [][]puzzle, int y, int x, int possible){
+	if(checkRow(puzzle, x, possible) || checkColumn(puzzle, y, possible) || checkBox(puzzle, y, x, possible))
+	    return false;
+	else
+	    return true;
+    }
+    //checking the row, if there is a conflict ie possible is found in row already, return true
+    public static boolean checkRow(int[][]puzzle, int x, int possible){
+	for(int i = 0; i<9; i++){
+	    if(puzzle[i][x] == possible)
+		return true;
+	}
+	return false;
+    }
     public static void main(String[] args)
     {
 	TC moo = new TC();
