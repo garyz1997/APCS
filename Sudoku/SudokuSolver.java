@@ -1,4 +1,8 @@
-public class TC
+import java.io.*;
+import java.util.*;
+
+
+public class SudokuSolver
 {
     public int rows = 4;
     public int cols = 4;
@@ -7,6 +11,52 @@ public class TC
     public int[] numbers= new int[rows+1];//unused numbers [0,1,0,0,1]
     public int[] coord = new int[2];
     public int missingNums;
+    static final String clear = "\033[2J";
+    static final String hide = "\033[?25l";
+    static final String show = "\033[?25h";
+
+    public String go(int x, int y) {
+        return "\033[" + x + ";" + y + "H";
+    }
+    
+    public void wait( int ms ) {
+        try {
+            Thread.sleep( ms );
+        }
+        catch( Exception e ) {}
+    }
+
+    public void SudokuSolver() {
+        int maxX=rows;
+        int maxY=cols;
+        field = new int[maxX][maxY];
+
+        try {       
+            Scanner sc = new Scanner(new File("maze2.dat"));
+            int j=0;
+
+            while (sc.hasNext()) {
+                String line = sc.nextLine();
+                for (int i=0; i < maxX; i++) {
+                    field[i][j] = line.charAt(i)-48;
+                }
+                j++;
+            }
+        }
+        catch (Exception e) {}  
+    }
+
+    public String toString() {
+        String s = "";
+        for (int y=0;y<cols;y++) {
+            for (int x=0;x<rows;x++)
+                s = s +field[x][y] + "\t";
+            s=s+"\n";
+        }
+        
+        return clear + hide + go(0,0) + s + show;
+    }
+
 
     
     public void nums(int x)
@@ -46,9 +96,9 @@ public class TC
 		    }
 	    }
 	this.sumRow();
-        if (isSolved)
+        if (this.isSolved())
             return true;
-	return solve(coord[0],coord[1]);
+	return solve();
 	return false;
     }
 
@@ -66,7 +116,6 @@ public class TC
 			    }
 		    }
 	    }
-	board[x][y] = 0;
 	return false;
     }
     public boolean isSolved()
@@ -98,58 +147,23 @@ public class TC
 	public int sumRow()
 	{
 	    int ans = 0;
-	    for (int a = 1;a<=num;a++)
+	    for (int a = 1;a<=cols;a++)
 		{
 		    ans+=a;
 		}
 	    sum = ans;
 	    return ans;
 	}
-	
-    public static boolean solve(int[][]puzzle){
-	//using backtracking
-	for(int i = 0; i<9; i++){
-	    for(int j = 0; j<9; j++){
-		if(puzzle[i][j]!=0){
-		    continue;
-		}
-		for(int n = 1; n<10; n++){ //testing posabilities
-		    if(isTrue(puzzle, i, j, n)){
-			puzzle[i][j] = n;
-			if(solve(puzzle))
-			    return true;
-			else{
-			    puzzle[i][j] = 0; //backtrack here
-			}
-		    }
-		}
-		return false; //no possibilities for the empty space
-	    }
-	}
-	return true; //hits end of the puzzle
-    }
-    //checks to see if an int possible in the puzzle at space [i][j] is acceptable
-    public static boolean isTrue(int [][]puzzle, int y, int x, int possible){
-	if(checkRow(puzzle, x, possible) || checkColumn(puzzle, y, possible) || checkBox(puzzle, y, x, possible))
-	    return false;
-	else
-	    return true;
-    }
-    //checking the row, if there is a conflict ie possible is found in row already, return true
-    public static boolean checkRow(int[][]puzzle, int x, int possible){
-	for(int i = 0; i<9; i++){
-	    if(puzzle[i][x] == possible)
-		return true;
-	}
-	return false;
-    }
+
     public static void main(String[] args)
     {
-	TC moo = new TC();
-	System.out.println(moo.solve(0,2,0,4,6,0));
+	SudokuSolver moo = new SudokuSolver();
+	System.out.println(moo.solve());
     }
 }
+/*
 1-4-
 --31
 4-2-
 -2-4
+*/
