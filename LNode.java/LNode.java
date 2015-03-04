@@ -10,19 +10,21 @@ public class LNode
 
     public String toString()
     {
-	return (String)this.data;
+	return "" + data;
     }
     
     public static void main(String[] args)
     {
-	LNode node1 = new LNode( 'A' );
-	LNode node2 = new LNode( 'B' );
-	LNode node3 = node2;
-	System.out.println( node1 );
-	System.out.println( node2 );
-	System.out.println( node3 );
-	node1.next = node2;
-	System.out.println(node1.next);
+	LNode n1 = new LNode( 'A' );
+	LNode n2 = new LNode( 'B' );
+	LNode n3 = new LNode('$');
+	System.out.println( n1 );
+	System.out.println( n2 );
+	System.out.println( n3 );
+	n1.next = n2;
+	n2.next = n3;
+	System.out.println(n1.next);
+	System.out.println(n2.next);
 	
     }
 
