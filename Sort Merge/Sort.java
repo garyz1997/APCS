@@ -109,11 +109,11 @@ public class Sort {
 	int acount = 0;
 	int bcount = 0;
 	int sortcount = 0;
-	for (int i = 0;i<20;i++)
+	for (int i = 0;i<a.length+b.length;i++)
 	    {
-		if ((acount==10) || (bcount==10))
+		if ((acount==a.length) || (bcount==b.length))
 		    {
-			if (acount == 10)
+			if (acount == a.length)
 			    {
 				sorted[i] = b[bcount];
 				bcount++;
@@ -144,7 +144,26 @@ public class Sort {
      	return sorted;
      }
 
+    public static int[] mergeSort( int[] list ) {
+	int len = list.length;
+	int[] begin = new int[len/2];
+	int[] end = new int[len-begin.length];
+	if (len <= 1)
+	    return list;
+	for (int a = 0;a<begin.length;a++)
+	    {
+		begin[a]=list[a];
+	    }
 
+	for (int b = 0;b<end.length;b++)
+	    {
+		end[b]=list[b + begin.length];
+	    }
+	begin = mergeSort(begin);
+	end = mergeSort(end);
+	list = merge(begin,end);
+	return list;
+    }
     public static void main(String[] args) {
 
 	int[] a1 = new int[10];
@@ -152,13 +171,17 @@ public class Sort {
 
 	populate(a1);
 	populate(a2);
-	insertionSort(a1);
-	insertionSort(a2);
+	//insertionSort(a1);
+	//insertionSort(a2);
 	System.out.println( show(a1) );
 	System.out.println( show(a2) );
 
 	int[] merged = merge( a1, a2 );
-	System.out.println( show( merged ) );
+	//System.out.println( show( merged ) );
 	
+	int[] mergesorted = mergeSort(a1);
+	System.out.println(show(mergesorted));
+	int[] mergesorted2 = mergeSort(a2);
+	System.out.println(show(mergesorted2));
     }
 }
