@@ -1,24 +1,24 @@
-public class LNode {
+public class LNode<E> {
     
-    private char data;
-    private LNode next;
+    private E data;
+    private LNode<E> next;
 
-    public LNode( char d ) {
+    public LNode( E d ) {
     	data = d;
     }
     public String toString() {
 	return "" + data;
     }
-    public void setData( char c ) {
+    public void setData( E c ) {
 	data = c;
     }
-    public void setNext( LNode n ) {
+    public void setNext( LNode<E> n ) {
 	next = n;
     }
-    public char getData() {
+    public E getData() {
     	return data;
     }
-    public LNode getNext() {
+    public LNode<E> getNext() {
     	return next;
     }    
 }
