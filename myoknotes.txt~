@@ -319,3 +319,7 @@ Heap memory
 	Once an object no longer is referenced from the stack, it is marked for deletion. Eventually it will be released by the "java garbage collector"
 
 
+Stack
+	A data strusture with very narrow constraints:
+	You can only access one specific item on the stack at any time(the top)
+	A Lst-inFirstOut data structure (LIFO)

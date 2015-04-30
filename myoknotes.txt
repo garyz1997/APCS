@@ -323,3 +323,16 @@ Stack
 	A data strusture with very narrow constraints:
 	You can only access one specific item on the stack at any time(the top)
 	A Lst-inFirstOut data structure (LIFO)
+
+Heap 
+	A complete (left justified) binary tree where the value of every element is less than the values of its children
+Adding a new value
+	Put the value in the next avalable position
+	If the new value is less than its parent, swap the two values
+	Repeat this until the new value is in a valid spot
+Removing a value
+	Replace the removed value with the last value in the heap and remove the newly changed last value
+	If the replaced value is less than its parent, swap the 2
+	If the replaced value is greater than one of its children, swap with the lesser of the two children
+	Keep swapping until the replaced value is in a valid spot
+
