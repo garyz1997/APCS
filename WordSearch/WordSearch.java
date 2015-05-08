@@ -103,3 +103,74 @@ public class WordSearch {
 	*/
     }
 }
+import java.util.*;
+import java.io.*;
+public class WordTree
+{
+
+	Arraylist<String> dict;
+	WTreeNode root;
+
+	public ArrayList<String> loadDictionary()
+	{
+		String s = "zzz";
+		ArrayList<String> dictionary = new ArrayList<String>();
+		try
+		{
+			FileReader f = new FileReader("wordlist.txt");
+			BufferedReader b = new BufferedReader(f);
+			while( s != null )
+			{
+				s = b.readLine();
+				if ( s != null )
+				dictionary.add(s);
+			}
+		}
+		catch (IOException e) {}
+		return dictionary;
+	}
+
+
+	// Dict.add(")
+	public WordTree()
+	{
+		dict = loadDictionary();
+		rot = '0';
+		WTreeNode curr = root;
+		for (String s : dict)
+			{
+			int count = 0;
+			while (count < s.length())
+				{
+					if (curr.getKids().contains(s.charAt(count)))
+						{
+							curr = curr.getKids()//set the thing to a new node
+						}
+					}
+				}
+			}
+	}
+
+
+	public void add( WTreeNode w ) 
+	{
+		curr WeTreeNode = 
+		if (root.getKids().size() == 0)
+		{
+			root.setKid( w );
+			return;
+		}
+		while (w.getKids().size() != 0)
+		{
+			if (root.indexOf(w) > -1)
+				
+		}
+	}
+		
+	
+	public static void main(String[] args)
+	{
+		WordTree Tina = new WordTre();
+	
+	}
+}
