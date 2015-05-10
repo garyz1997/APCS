@@ -5,6 +5,8 @@ public class WordTree
 
     ArrayList<String> dict = new ArrayList<String>();
     static WTreeNode root;
+    private String lW="";
+    private int numWordsWithPre = 0;;
 
     public ArrayList<String> loadDictionary()
     {
@@ -117,25 +119,31 @@ public class WordTree
     {
 	int num = longest();
 	//System.out.println(longest());
-	int count = 0;
-	String ans = "";
-	ans+=Character.toString(longestWordhelper(root,0,num));
-	return ans;
+	//int count = 0;
+	//String ans = "";
+	longestWordhelper(root,0,num);
+	return lW;
     }
-    public char longestWordhelper(WTreeNode w, int a, int match)
+    public boolean longestWordhelper(WTreeNode w, int a, int match)
     {
 	if (a==match)
 	    {
-		return w.getData();
+		//lW+=Character.toString(w.getData());
+		return true;
 	    }
 	else
 	    {
 		for (WTreeNode x:w.getKids())
 		    {
-			return longestWordhelper(x,a+1,match);
+			lW+=Character.toString(x.getData());
+			if (longestWordhelper(x,a+1,match))
+			    {
+				return true;
+			    }
 		    }
 	    }
-		return ' ';
+	lW=lW.substring(0,lW.length()-1);
+	return false;
 	    
 	//return ' ';
     }
@@ -189,6 +197,37 @@ public class WordTree
       }
       }
     */
+
+    public int numWords(String a)
+    {
+	int count = 0;
+	WTreeNode curr = root;
+	ArrayList<String> ans = new ArrayList<String>();
+	while (count < a.length())
+	    {
+		for (WTreeNode w : curr.getKids())
+		    {
+			if (Character.toString(w.getData()).equals(a.substring(count,count+1)))
+			    {
+				count++;
+				curr = w;
+				if (count==a.length()) break;
+			    }
+		    }
+	    }
+	numHelper(curr);
+	return numWordsWithPre;
+    }
+
+    public void numHelper(WTreeNode y)
+    {
+	if (y.getEnd()==true) numWordsWithPre++;
+	for (WTreeNode z : y.getKids())
+	    {
+		numHelper(z);
+	    }
+    }
+
     public void printTree(WTreeNode bleh)
     {
 	int count = 0;
@@ -217,6 +256,7 @@ public class WordTree
 	    }
 	System.out.println();
 	System.out.println(Tina.longestWord());
+	System.out.println(Tina.numWords("a"));
 	//System.out.println(Tina.beginning("a"));
 	//Tina.loadDictionary();
     }
