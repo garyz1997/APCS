@@ -342,3 +342,7 @@ Heap Implementation
 	Left child: 2i+1
 	Right child: 2i+2
 	Parent: (i-1)/2
+Genetic Algorithms
+	Algorithms that use concepts from natural evolution to solve hard problems
+	Natural selection, mutation, genetic crossover all can be mimicked in a genetic algorithm.
+

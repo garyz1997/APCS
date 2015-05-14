@@ -336,3 +336,9 @@ Removing a value
 	If the replaced value is greater than one of its children, swap with the lesser of the two children
 	Keep swapping until the replaced value is in a valid spot
 
+Heap Implementation
+	Because Heaps are complete trees, we can use arrays to represent them.
+	For any node at index i
+	Left child: 2i+1
+	Right child: 2i+2
+	Parent: (i-1)/2
