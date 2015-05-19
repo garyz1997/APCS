@@ -346,3 +346,11 @@ Genetic Algorithms
 	Algorithms that use concepts from natural evolution to solve hard problems
 	Natural selection, mutation, genetic crossover all can be mimicked in a genetic algorithm.
 
+General steps:
+1.Define the problem and identify the traits
+2. Create an encoding scheme
+3. Generate a random population
+4. Evaluate the fitness of each individual
+5. "Randomly" select pairs of each individual to mate, given the more fit ones a greater chance of being selected, and create a new population from the result of the mating.
+
+
