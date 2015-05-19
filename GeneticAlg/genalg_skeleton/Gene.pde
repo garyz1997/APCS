@@ -5,7 +5,7 @@
       value: corresponding base 10 number of the genotype
       geneLenght: desired length of the gene
   ====================================*/
-
+import java.util.*;
 
 class Gene {
 
@@ -19,6 +19,12 @@ class Gene {
   a 1 or a 0, then calcuate the value.
   ====================================*/
   Gene(int l) {
+    genotype = new int[l];
+    for (int a = 0;a<l;a++)
+    {
+      genotype[a] = (int)(Math.random()*2);
+      //println(genotype[a]);
+    }
   }
   
   /*=====================================
@@ -26,6 +32,9 @@ class Gene {
     of the parameter
   ====================================*/
   Gene(Gene g) {
+    Gene x = new Gene(g.geneLength);
+    x.genotype = g.genotype;
+    x.value = g.value;
   }
        
   /*=====================================
@@ -50,5 +59,6 @@ class Gene {
     
     println( genotype );
     println( value );
+    println("hi");
   }
 }

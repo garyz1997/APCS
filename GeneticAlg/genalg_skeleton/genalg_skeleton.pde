@@ -15,6 +15,8 @@ float mutationRate = 0.05;
 //The actual individuals
 Individual[] population;
 Individual selected;
+Blob b1;
+Gene g1;
 
 
 /*=====================================
@@ -23,6 +25,11 @@ Individual selected;
   Setup the basic window properties
   ====================================*/
 void setup() {
+  size(400,400);
+  background(0);
+  b1 = new Blob(200,300,4,100,50,20);
+  //Blob b2 = new Blob();
+  g1 = new Gene(5);
 }
 
 /*=====================================
@@ -35,6 +42,10 @@ void setup() {
   If mating mode is set to continuous, call mating season
   ====================================*/
 void draw() {
+  background(150, 0, 255);
+  b1.display();
+  g1.display();
+  //b2.diplay();
 }
 
 /*=====================================
