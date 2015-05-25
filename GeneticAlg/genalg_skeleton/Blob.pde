@@ -19,8 +19,11 @@ class Blob {
   float y;
   int xFactor;
   int yFactor;
+  int r;
+  int g;
+  int b;
   
-  Blob(float cx, float cy, int n, int l, int xf, int yf ) {
+  Blob(float cx, float cy, int n, int l, int xf, int yf, int red, int green, int blue ) {
     
     x = cx;
     y = cy;
@@ -28,6 +31,9 @@ class Blob {
     radius = l;
     xFactor = xf;
     yFactor = yf;
+    r=red;
+    g=green;
+    b=blue;
   }
   
   void display() {
@@ -55,6 +61,7 @@ class Blob {
       
       vertex(nx, ny);
     }      
+    fill(r,g,b);
     endShape();
   }
 }

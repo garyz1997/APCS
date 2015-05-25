@@ -34,7 +34,6 @@ class Individual {
   int BLUE_COLOR = 4;
   int X_FACTOR = 5;
   int Y_FACTOR = 6;
-
   /*=====================================
   Constants defining how long each gene will be.
   For initial developmen set these to lower
@@ -44,13 +43,10 @@ class Individual {
   int RADIUS_GENE_SIZE = 5;
   int COLOR_GENE_SIZE = 8;
   int FACTOR_GENE_SIZE = 4;
-  
   //Instance variables
   Gene[] chromosome;
   Blob phenotype;
   float fitness;
-  
-
   /*=====================================
   Create a New Individual by setting each entry in chromosome
   to a new randomly created gene of the appropriate length.
@@ -60,7 +56,24 @@ class Individual {
   (i.e. if the sides gene is 4, the regulargon should have 4
     sides...)
   ====================================*/
-  Individual(float cx, float cy) {  
+  Individual(float cx, float cy) { 
+   chromosome = new Gene[CHROMOSOME_LENGTH];
+   Gene s = new Gene(SIDE_GENE_SIZE);
+   Gene r = new Gene(RADIUS_GENE_SIZE);
+   Gene rc = new Gene(COLOR_GENE_SIZE);
+   Gene gc = new Gene(COLOR_GENE_SIZE);
+   Gene bc = new Gene(COLOR_GENE_SIZE);
+   Gene x = new Gene(FACTOR_GENE_SIZE);
+   Gene y = new Gene(FACTOR_GENE_SIZE);
+   chromosome[SIDES] = s;
+   chromosome[RAD] = r;
+   chromosome[RED_COLOR] = rc;
+   chromosome[GREEN_COLOR] = gc;
+   chromosome[BLUE_COLOR] = bc;
+   chromosome[X_FACTOR] = x;
+   chromosome[Y_FACTOR] = y;
+   phenotype = new Blob(cx, cy, s.value, r.value, x.value, y.value, rc.value,gc.value,bc.value);
+   
   }
 
   /*=====================================
@@ -68,13 +81,15 @@ class Individual {
   color appropriately
   ====================================*/
   void display() {
+    phenotype.display();
   }
 
   /*=====================================
   Set phenotype to a new regulargon with center cx, cy and 
     properties that align with gene values.
   ====================================*/
-  void setPhenotype(int cx, int cy) {      
+  void setPhenotype(int cx, int cy) {    
+  phenotype = new Blob(cx,cy,chromosome[SIDES].value,chromosome[RAD].value,chromosome[X_FACTOR].value,chromosome[Y_FACTOR].value,chromosome[RED_COLOR].value,chromosome[GREEN_COLOR].value,chromosome[BLUE_COLOR].value);  
   }
   
   /*=====================================
@@ -82,7 +97,11 @@ class Individual {
   debugging and development
   ====================================*/
  void printIndividual() {
-     println( chromosome[0].value );
+   println();
+   for (int a = 0;a<CHROMOSOME_LENGTH;a++)
+   {
+     println( chromosome[a].value );
+   }
  }
 
   /*=====================================
@@ -94,7 +113,22 @@ class Individual {
     as the center
   ====================================*/
  Individual mate(Individual other, int cx, int cy) {
-   return null;
+   Individual b = new Individual(cx,cy);
+   for (int a = 0; a<CHROMOSOME_LENGTH;a++)
+   {
+    if ((int)random(2)==0)
+     {
+       Gene x = new Gene(this.chromosome[a]);
+       b.chromosome[a]=x;
+     } 
+    else
+     {
+       Gene y = other.chromosome[a];
+       b.chromosome[a]=y;
+     }
+   }
+   b.setPhenotype(cx,cy);
+   return b;
  }
 
   /*=====================================
@@ -104,6 +138,14 @@ class Individual {
     should be
   ====================================*/
  void setFitness( Individual goal ) {
+   int thisvalue=0;
+   int goalvalue = 0;
+   for (int a = 0;a<CHROMOSOME_LENGTH;a++)
+   {
+    thisvalue+=this.chromosome[a].value;
+    goalvalue+=goal.chromosome[a].value; 
+   }
+   fitness = 889 - abs(thisvalue-goalvalue);
  }
 
   /*=====================================
@@ -111,6 +153,11 @@ class Individual {
     of genes.
   ====================================*/
  void mutate() {
+   for (int a = 0;a<CHROMOSOME_LENGTH;a++)
+   {
+     if (int(random(2))==0)
+      chromosome[a].mutate(); 
+   }
  }
 
 }

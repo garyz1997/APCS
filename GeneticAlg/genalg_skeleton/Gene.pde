@@ -5,7 +5,6 @@
       value: corresponding base 10 number of the genotype
       geneLenght: desired length of the gene
   ====================================*/
-import java.util.*;
 
 class Gene {
 
@@ -20,11 +19,12 @@ class Gene {
   ====================================*/
   Gene(int l) {
     genotype = new int[l];
+    value = 0;
     for (int a = 0;a<l;a++)
     {
-      genotype[a] = (int)(Math.random()*2);
-      //println(genotype[a]);
+      genotype[a] = (int)(random(2));
     }
+    setValue();
   }
   
   /*=====================================
@@ -41,7 +41,18 @@ class Gene {
     Pick a random element from genotype
     and switch it from 1 to 0 or vice-versa
   ====================================*/ 
-  void mutate() {    
+  void mutate() { 
+   int a = (int)random(genotype.length);
+   if (genotype[a]==0)
+   {
+     genotype[a]=1;
+     setValue();
+   }
+   else
+   {
+     genotype[a]=0;
+     setValue();
+   } 
   }
   
   /*=====================================
@@ -49,6 +60,12 @@ class Gene {
   correct bast 10 equvalent of the binary number
   ====================================*/
   void setValue() {
+    value=0;
+    for (int a = 0;a<genotype.length;a++)
+    {
+      if (genotype[a]==1)
+        value+=pow(2,a);
+    }
   }
   
   /*=====================================
@@ -59,6 +76,7 @@ class Gene {
     
     println( genotype );
     println( value );
-    println("hi");
+    println("bloop");
+    
   }
 }
