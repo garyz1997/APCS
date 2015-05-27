@@ -353,4 +353,17 @@ General steps:
 4. Evaluate the fitness of each individual
 5. "Randomly" select pairs of each individual to mate, given the more fit ones a greater chance of being selected, and create a new population from the result of the mating.
 
-
+Hash Tables
+	An array based structure where the location of each value in the array is found by applying a hash function to the value.
+	
+Hash Function
+	A hash function is designed to take in a value and return a unique value, called a hash code.
+	The same input will always return the same hash code, but you cannot reverse the process to get the orginal calue from the hash code itself.
+Hash collisions
+	A hash collision occurs when 2 different values have the same hash code.
+	The 2 most common solutions to hash collisions are separate chaining and open addressing.
+Separate Chaining
+	Each "bucket" in a hash table contains a linkedlist
+	When a new value is added to the hash table, it is added to the end of the linked list found at the index it was hashed to
+Open addressing
+	When a collision occurs, the hash table moves to the "next available" space.
