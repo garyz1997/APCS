@@ -1,11 +1,19 @@
-// Leon Chou, Garydos, Amanda Wang, Mark Kharakh
+// Gary, Andy
 import java.util.*;
 
 public class Game {
     
     public static void main(String[] args) {
-        System.out.println("You wake up alone in a dark room with no memory of last night. Nothing that hasn't happened before, but it feels different this time. You see the bars that make up your door and breakfast that someone slid towards you. You're in jail, and you don't even know who you are. What is your name?");
         Scanner input  = new Scanner(System.in);
+        Map m = new Map(0);
+        //m.reset();
+        //System.out.println(m.spawn()); 
+        //System.out.println(m);
+        //m.reset();
+        System.out.println(m);
+
+        System.out.println("You wake up alone in a dark room with no memory of last night. Nothing that hasn't happened before, but it feels different this time. You see the bars that make up your door, a sink, and a toilet. You're stuck in a dungeon, and you don't even know who you are. What is your name?");
+        //Scanner input  = new Scanner(System.in);
         String nickname = input.nextLine();
         
         System.out.println("Are you sneaky, fast, or strong?");
