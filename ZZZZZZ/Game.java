@@ -5,14 +5,20 @@ public class Game {
     
     public static void main(String[] args) {
         Scanner input  = new Scanner(System.in);
+
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~INTRO~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
         Map m = new Map(0);
         //m.reset();
         //System.out.println(m.spawn()); 
         //System.out.println(m);
         //m.reset();
         System.out.println(m);
-
         System.out.println("You wake up alone in a dark room with no memory of last night. Nothing that hasn't happened before, but it feels different this time. You see the bars that make up your door, a sink, and a toilet. You're stuck in a dungeon, and you don't even know who you are. What is your name?");
+
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~INTRO~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~CHARACTER SETUP(name, class)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	
         //Scanner input  = new Scanner(System.in);
         String nickname = input.nextLine();
         
@@ -38,7 +44,10 @@ public class Game {
             }
         }
         System.out.println("Oh! So you are a " + type + " then!");
-        
+
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~CHARACTER SETUP(name, class)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~MAP SETUP(name, class)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	
         String answer = "";
         while (hero.room == 0){
             
@@ -51,10 +60,17 @@ public class Game {
                 System.out.println("You go back to sleep...");
             }
         }
+	Map n = new Map(1);
+	System.out.println(n);
+	System.out.println("You find yourself in a dark tunnel. You decide to venture forward into the unknown");
 
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~MAP SETUP~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~GAME~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	
         while (hero.hp > 0){
             System.out.println();
-            if (enemy.hp <= 0){
+	    System.out.println(n);
+	    if (enemy.hp <= 0){
                 if (hero.room % 10 == 0){
                     enemy = new Boss(hero.room);
                     System.out.println("A boss has appeared!");
@@ -63,13 +79,19 @@ public class Game {
                 }
                 System.out.println("You have encountered " + enemy.name + " Level : "+ hero.room);
             }
-
+	    //System.out.println(n);
             hero.encounter(enemy);
+	    //System.out.println(n);
         }
-        
+
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~GAME~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~END~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	
         System.out.println("You have died! Game Over!");
         System.out.println("Your statistics:");
         System.out.println(hero);
+
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~END~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     }
 }
 

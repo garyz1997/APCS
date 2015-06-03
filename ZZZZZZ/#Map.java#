@@ -28,7 +28,7 @@ public class Map
 
     public Map(int choice)
     {
-	if (choice==0)
+	if (choice==0)//intro dungeon room
 	    {
 		try 
 		    {	    
@@ -48,7 +48,7 @@ public class Map
 		catch (Exception e) {}	
 	    }
 	
-	if (choice==1)
+	if (choice==1)//First map
 	    {
 		try 
 		    {	    
